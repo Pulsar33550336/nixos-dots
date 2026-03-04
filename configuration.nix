@@ -18,17 +18,34 @@ in
     #<home-manager/nixos>
   ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader = {
-    grub = {
-      enable = true;
-      efiSupport = true;
-      device = "nodev"; # UEFI模式使用"nodev"
+  boot = {
+    loader = {
+      grub = {
+        enable = true;
+        efiSupport = true;
+        device = "nodev";
+        splashImage = null;
+        timeoutStyle = "hidden";
+        timeout = 0;
+      };
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot";
+      };
     };
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot"; # EFI分区挂载点
-    };
+
+    initrd.systemd.enable = true;
+
+    initrd.availableKernelModules = [ "i915" ];
+
+    plymouth.enable = true;
+
+    kernelParams = [
+      "quiet"
+      "splash"
+    ];
+    initrd.verbose = false;
+    consoleLogLevel = 0;
   };
 
   # Enable Hyprland
@@ -94,7 +111,7 @@ in
       user = "Pulsar"; # 请替换为你的实际用户名
     };
     # 可选：如果你喜欢更现代的 SDDM 主题
-    # theme = "breeze"; 
+    # theme = "breeze";
   };
   services.displayManager.defaultSession = "hyprland";
 
@@ -146,35 +163,45 @@ in
         };
       };
     };
+    kde-fingerprint.fprintAuth = true; # KDE 指纹特定
 
-    kde-fingerprint.fprintAuth = true;  # KDE 指纹特定
-    
-    # 明确关闭所有其他服务（基于你列出的列表）
-    login.fprintAuth = false;           # 登录界面
-    chfn.fprintAuth = false;            # 修改finger信息
-    chpasswd.fprintAuth = false;        # 批量修改密码
-    chsh.fprintAuth = false;            # 修改shell
-    groupadd.fprintAuth = false;        # 添加组
-    groupdel.fprintAuth = false;        # 删除组
-    groupmems.fprintAuth = false;       # 管理组成员
-    groupmod.fprintAuth = false;        # 修改组
-    kde.fprintAuth = false;             # KDE 相关
-    other.fprintAuth = false;           # 其他服务
-    passwd.fprintAuth = false;          # 修改密码
-    runuser.fprintAuth = false;         # 以其他用户身份运行
-    runuser-l.fprintAuth = false;       # runuser 的登录 shell 版本
-    sddm.fprintAuth = false;            # SDDM 登录管理器
-    sddm-autologin.fprintAuth = false;  # SDDM 自动登录
-    sddm-greeter.fprintAuth = false;    # SDDM 欢迎界面
-    sshd.fprintAuth = false;            # SSH 守护进程
-    su.fprintAuth = false;              # 切换用户
-    systemd-run0.fprintAuth = false;    # systemd 运行命令
-    systemd-user.fprintAuth = false;    # systemd 用户实例
-    useradd.fprintAuth = false;         # 添加用户
-    userdel.fprintAuth = false;         # 删除用户
-    usermod.fprintAuth = false;         # 修改用户
-    vlock.fprintAuth = false;           # 终端锁屏
-    xlock.fprintAuth = false;           # X 锁屏
+    noctalia-shell = {
+      rules.auth = {
+        fprintd = {
+          order = 0;
+          control = "sufficient";
+          modulePath = "${pkgs.fprintd}/lib/security/pam_fprintd.so";
+          args = [ "max-tries=5" ];
+        };
+      };
+    };
+
+    # 明确关闭所有其他服务
+    login.fprintAuth = false; # 登录界面
+    chfn.fprintAuth = false; # 修改finger信息
+    chpasswd.fprintAuth = false; # 批量修改密码
+    chsh.fprintAuth = false; # 修改shell
+    groupadd.fprintAuth = false; # 添加组
+    groupdel.fprintAuth = false; # 删除组
+    groupmems.fprintAuth = false; # 管理组成员
+    groupmod.fprintAuth = false; # 修改组
+    kde.fprintAuth = false; # KDE 相关
+    other.fprintAuth = false; # 其他服务
+    passwd.fprintAuth = false; # 修改密码
+    runuser.fprintAuth = false; # 以其他用户身份运行
+    runuser-l.fprintAuth = false; # runuser 的登录 shell 版本
+    sddm.fprintAuth = false; # SDDM 登录管理器
+    sddm-autologin.fprintAuth = false; # SDDM 自动登录
+    sddm-greeter.fprintAuth = false; # SDDM 欢迎界面
+    sshd.fprintAuth = false; # SSH 守护进程
+    su.fprintAuth = false; # 切换用户
+    systemd-run0.fprintAuth = false; # systemd 运行命令
+    systemd-user.fprintAuth = false; # systemd 用户实例
+    useradd.fprintAuth = false; # 添加用户
+    userdel.fprintAuth = false; # 删除用户
+    usermod.fprintAuth = false; # 修改用户
+    vlock.fprintAuth = false; # 终端锁屏
+    xlock.fprintAuth = false; # X 锁屏
   };
 
   programs.clash-verge.enable = true;
@@ -198,7 +225,6 @@ in
     cmake
     ninja
     meson
-    # vscode
     file
     vlc
     valgrind
@@ -215,7 +241,28 @@ in
     libsForQt5.kirigami-addons
   ];
 
-  nixpkgs.config.allowUnfree = true;
+  xdg.portal = {
+    enable = true;
+
+    extraPortals = with pkgs; [
+      kdePackages.xdg-desktop-portal-kde
+      xdg-desktop-portal-gtk
+    ];
+
+    # 配置首选门户
+    config = {
+      common = {
+        default = "kde";
+      };
+    };
+  };
+
+  # 确保 KDE 门户需要的服务在运行
+  services.dbus.packages = with pkgs; [
+    kdePackages.xdg-desktop-portal-kde
+  ];
+
+  # nixpkgs.config.allowUnfree = true;
 
   services.openssh.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
