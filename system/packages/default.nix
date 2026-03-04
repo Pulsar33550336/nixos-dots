@@ -7,6 +7,5 @@
     ./rust.nix
     ./python.nix
     ./desktop.nix
-    ./network.nix
   ];
 }

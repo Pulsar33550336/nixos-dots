@@ -3,13 +3,15 @@
 {
   programs.git = {
     enable = true;
-    userName = "Pulsar33550336";
-    userEmail = "pulsar33550336@163.com";
     signing = {
       key = "2B867C4832784EE0";
       signByDefault = true;
     };
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Pulsar33550336";
+        email = "pulsar33550336@163.com";
+      };
       core = {
         autocrlf = "input";
       };
@@ -28,6 +30,6 @@
 
   services.gpg-agent = {
     enable = true;
-    pinentryPackage = pkgs.pinentry-gtk2;
+    pinentry.package = pkgs.pinentry-gtk2;
   };
 }

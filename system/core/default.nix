@@ -9,8 +9,8 @@
         device = "nodev";
         splashImage = null;
         timeoutStyle = "hidden";
-        timeout = 0;
       };
+      timeout = 0;
       efi = {
         canTouchEfiVariables = true;
         efiSysMountPoint = "/boot";

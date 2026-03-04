@@ -13,12 +13,10 @@
   ];
 
   services.desktopManager.plasma6.enable = true;
-  services.displayManager.sddm = {
+  services.displayManager.sddm.enable = true;
+  services.displayManager.autoLogin = {
     enable = true;
-    autoLogin = {
-      enable = true;
-      user = "Pulsar";
-    };
+    user = "Pulsar";
   };
   services.displayManager.defaultSession = "hyprland";
 
