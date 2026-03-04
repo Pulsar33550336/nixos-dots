@@ -8,5 +8,6 @@
     ./python.nix
     ./desktop.nix
     ./network.nix
+    ./system.nix
   ];
 }

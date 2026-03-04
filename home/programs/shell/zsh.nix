@@ -10,6 +10,7 @@
     zsh-powerlevel10k
     safe-rm
     direnv
+    neovim
   ];
   programs.zsh = {
     enable = true;
