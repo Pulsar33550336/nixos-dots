@@ -11,7 +11,8 @@ let
   userDataDir = "${dataDir}/vscode/data";
   extensionsDir = "${dataDir}/vscode/extensions";
 
-  marketplace = inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.hostPlatform.system}.vscode-marketplace;
+  marketplace =
+    inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.hostPlatform.system}.vscode-marketplace;
   marketplace-universal =
     inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.hostPlatform.system}.vscode-marketplace-universal;
 
