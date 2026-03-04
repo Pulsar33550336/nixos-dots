@@ -799,7 +799,7 @@
           enabled = true;
           sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
         };
-        screen-shot-and-record = {
+        "f4c24d:screen-shot-and-record" = {
           enabled = true;
           sourceUrl = "https://github.com/Pulsar33550336/pulsar-ns-plugins";
         };
@@ -811,10 +811,10 @@
           enabled = true;
           sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
         };
-        update-count = {
-          enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-        };
+        # update-count = {
+        #   enabled = true;
+        #   sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+        # };
       };
       version = 2;
     };
@@ -844,7 +844,7 @@
         activeColor = "primary";
         inactiveColor = "none";
       };
-      screen-shot-and-record = {
+      "f4c24d:screen-shot-and-record" = {
         enableWindowsSelection = true;
         screenshotEditor = "swappy";
         enableCross = true;
@@ -852,9 +852,9 @@
       timer = {
         compactMode = true;
       };
-      update-count = {
-        updateTerminalCommand = "kitty -e {}";
-      };
+      # update-count = {
+      #   updateTerminalCommand = "kitty -e {}";
+      # };
     };
   };
 }
