@@ -7,7 +7,7 @@ in
 {
   imports = [ inputs.niri.nixosModules.niri ];
   programs.niri.enable = true;
-  home-manager.users.Qaaxaap = 
+  home-manager.users.Pulsar = 
     { config, lib, ... }:
     {
      #  home.sessionVariables = { QT_QPA_PLATFORMTHEME = "kde"; }; 

@@ -2,12 +2,12 @@
 
 {
   programs.zsh.enable = true;
-  users.users.Qaaxaap = {
+  users.users.Pulsar = {
     shell = pkgs.zsh;
   };
   environment.shells = with pkgs; [ bash zsh ];
   users.defaultUserShell = pkgs.zsh;
-  home-manager.users.Qaaxaap = { pkgs, ... }: {
+  home-manager.users.Pulsar = { pkgs, ... }: {
     home.file.".p10k.zsh".source = ./p10k.zsh;
     home.packages = with pkgs; [
       zsh-powerlevel10k
