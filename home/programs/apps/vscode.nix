@@ -37,6 +37,17 @@ let
     });
 in
 {
+  imports = [
+    (import (builtins.fetchurl {
+      url = "https://gist.githubusercontent.com/piousdeer/b29c272eaeba398b864da6abf6cb5daa/raw/41e569ba110eb6ebbb463a6b1f5d9fe4f9e82375/mutability.nix";
+      sha256 = "4b5ca670c1ac865927e98ac5bf5c131eca46cc20abf0bd0612db955bfc979de8";
+    }) { inherit config lib; })
+    (import (builtins.fetchurl {
+      url = "https://gist.githubusercontent.com/piousdeer/b29c272eaeba398b864da6abf6cb5daa/raw/41e569ba110eb6ebbb463a6b1f5d9fe4f9e82375/vscode.nix";
+      sha256 = "fed877fa1eefd94bc4806641cea87138df78a47af89c7818ac5e76ebacbd025f";
+    }) { inherit config lib pkgs; })
+  ];
+
   programs.vscode = {
     enable = true;
     package = vscode-pkg;
@@ -332,83 +343,4 @@ in
       };
     };
   };
-
-  # systemd.user.services.vscode-setup = {
-  #   Unit = {
-  #     Description = "VSCode Setup service";
-  #     After = [ "graphical-session-pre.target" ];
-  #     Wants = [ "graphical-session-pre.target" ];
-  #   };
-  #   Install.WantedBy = [ "graphical-session.target" ];
-  #   Service = {
-  #     Type = "oneshot";
-  #     UMask = "0022";
-  #     ExecStart = lib.getExe (
-  #       pkgs.writeShellApplication {
-  #         name = "vscode-setup";
-  #         runtimeInputs = with pkgs; [
-  #           coreutils
-  #           gnutar
-  #           jq
-  #         ];
-  #         text =
-  #           let
-  #             userSrc = "${homeDir}/.config/Code/User";
-  #             userDst = "${userDataDir}/User";
-  #             extSrc = "${homeDir}/.vscode/extensions";
-  #             extDst = extensionsDir;
-
-  #             dirsToPreserve = [
-  #               "workspaceStorage"
-  #               "History"
-  #             ];
-  #             backupCmds = builtins.concatStringsSep "\n" (
-  #               map (dir: ''
-  #                 if [ -e "${userDst}/${dir}" ]; then
-  #                   echo "Backing up data/User/${dir}..."
-  #                   mv "${userDst}/${dir}" "/tmp/vscode-${dir}-$$"
-  #                 fi
-  #               '') (dirsToPreserve ++ [ "globalStorage" ])
-  #             );
-  #             restoreCmds = builtins.concatStringsSep "\n" (
-  #               map (dir: ''
-  #                 if [ -e "/tmp/vscode-${dir}-$$" ]; then
-  #                   echo "Restoring data/User/${dir}..."
-  #                   mv "/tmp/vscode-${dir}-$$" "${userDst}/${dir}"
-  #                 fi
-  #               '') dirsToPreserve
-  #             );
-  #           in
-  #           ''
-  #             set -eu
-  #             ${backupCmds}
-  #             echo "Cleaning old directories..."
-  #             chmod -R u+w "${extDst}" 2>/dev/null || true
-  #             rm -rf "${userDst}"
-  #             rm -rf "${extDst}"
-  #             mkdir -p "${userDataDir}"
-  #             mkdir -p "${extDst}"
-  #             echo "Copying user settings from ${userSrc}..."
-  #             cp -r --dereference --no-preserve=mode,ownership ${userSrc} "${userDst}"
-  #             echo "Copying extensions from ${extSrc}..."
-  #             tar -h -C "${extSrc}" -cf - . | tar -C "${extDst}" -xf - --no-same-owner --no-same-permissions --mode='u=rX,go=rX'
-  #             chmod u+w -R "${extDst}" 2>/dev/null || true
-  #             ${restoreCmds}
-  #             echo "Restoring and merging data/User/globalStorage..."
-  #             if [ -e "/tmp/vscode-globalStorage-$$" ]; then
-  #               cp -rT "/tmp/vscode-globalStorage-$$" "${userDst}/globalStorage"
-  #               src_storage_json="${userSrc}/globalStorage/storage.json"
-  #               dst_storage_json="${userDst}/globalStorage/storage.json"
-  #               if [ -f "$src_storage_json" ] && [ -f "$dst_storage_json" ]; then
-  #                 merged_json=$(mktemp)
-  #                 jq -s '.[0] * .[1]' "$dst_storage_json" "$src_storage_json" > "$merged_json"
-  #                 mv "$merged_json" "$dst_storage_json"
-  #               fi
-  #             fi
-  #             echo "VSCode setup complete."
-  #           '';
-  #       }
-  #     );
-  #   };
-  # };
 }
