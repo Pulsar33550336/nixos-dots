@@ -45,6 +45,7 @@
       defaultFonts = {
         sansSerif = [ "Noto Sans CJK SC" ];
         serif = [ "Noto Serif CJK SC" ];
+        monospace = [ "Maple Mono Normal NL NF CN" ];
       };
     };
   };
