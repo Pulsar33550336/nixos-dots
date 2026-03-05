@@ -46,5 +46,12 @@
 
   services.cron.enable = true;
 
+  security.sudo = {
+    enable = true;
+    extraConfig = ''
+      Defaults pwfeedback
+    '';
+  };
+
   system.stateVersion = "25.11";
 }

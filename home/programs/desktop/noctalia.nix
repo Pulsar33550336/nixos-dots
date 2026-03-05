@@ -171,18 +171,18 @@
               };
               id = "plugin:pomodoro";
             }
-            {
-              defaultSettings = {
-                currentIconName = "world-download";
-                hideOnZero = false;
-                updateIntervalMinutes = 30;
-                updateTerminalCommand = "foot -e";
-              };
-              id = "plugin:update-count";
-            }
+            # {
+            #   defaultSettings = {
+            #     currentIconName = "world-download";
+            #     hideOnZero = false;
+            #     updateIntervalMinutes = 30;
+            #     updateTerminalCommand = "foot -e";
+            #   };
+            #   id = "plugin:update-count";
+            # }
             {
               deviceNativePath = "BAT0";
-              displayMode = "graphic-clean";
+              displayMode = "graphic";
               hideIfIdle = false;
               hideIfNotDetected = true;
               id = "Battery";
@@ -215,14 +215,14 @@
               id = "ControlCenter";
               useDistroLogo = false;
             }
-            {
-              defaultSettings = {
-                enableCross = true;
-                enableWindowsSelection = true;
-                screenshotEditor = "swappy";
-              };
-              id = "plugin:screen-shot-and-record";
-            }
+            # {
+            #   defaultSettings = {
+            #     enableCross = true;
+            #     enableWindowsSelection = true;
+            #     screenshotEditor = "swappy";
+            #   };
+            #   id = "plugin:screen-shot-and-record";
+            # }
           ];
         };
         mouseWheelAction = "workspace";
@@ -526,6 +526,7 @@
       network = {
         wifiEnabled = true;
         airplaneModeEnabled = false;
+        bluetoothAutoConnect = true;
         bluetoothRssiPollingEnabled = false;
         bluetoothRssiPollIntervalMs = 10000;
         networkPanelView = "wifi";
