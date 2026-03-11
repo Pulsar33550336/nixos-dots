@@ -8,6 +8,7 @@
 {
   imports = [
     ./shell/zsh.nix
+    ./shell/nh.nix
     ./desktop/hyprland.nix
     ./desktop/noctalia.nix
     ./apps/git.nix
