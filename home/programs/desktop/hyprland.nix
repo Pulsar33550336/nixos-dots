@@ -25,5 +25,10 @@
     fuzzel
     playerctl
     hyprpicker
+    wlsunset
+    wf-recorder
+    imagemagick
+    libnotify
+    xrdb
   ];
 }

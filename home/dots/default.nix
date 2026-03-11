@@ -11,4 +11,8 @@
 
   home.file.".p10k.zsh".source = ../assets/p10k.zsh;
   home.file.".local/share/icons/MacOS-hyprcursor".source = ../assets/MacOS-hyprcursor;
+
+  xresources.properties = {
+    "Xft.dpi" = 192;
+  };
 }

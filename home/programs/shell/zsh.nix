@@ -132,6 +132,10 @@
         }
 
         compdef _qrdecode qrdecode
+
+
+        export LFS=/mnt/lfs
+        umask 022
       '')
     ];
   };

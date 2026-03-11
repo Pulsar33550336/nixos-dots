@@ -9,5 +9,8 @@
     killall
     file
     fastfetch
+    bison
+    gnum4
+    gnumake
   ];
 }
