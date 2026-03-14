@@ -43,6 +43,10 @@ in
     (import ../../assets/vscode.nix { inherit config lib pkgs; })
   ];
 
+  home.packages = with pkgs; [
+    nixd
+  ];
+
   programs.vscode = {
     enable = true;
     package = vscode-pkg;
@@ -314,6 +318,22 @@ in
 
         # Markdown Preview Enhanced settings
         "markdown-preview-enhanced.enablePreviewZenMode" = true;
+
+        "nix.enableLanguageServer" = true;
+        "nix.serverPath" = "nixd";
+        "nix.serverSettings" = {
+          "nixd" = {
+            "options" = {
+              "nixos" = {
+                "expr" = "(builtins.getFlake \"/home/Pulsar/nix\").nixosConfigurations.NixOS-Pulsar.options";
+              };
+              "home-manager" = {
+                "expr" =
+                  "(builtins.getFlake \"/home/Pulsar/nix\").nixosConfigurations.NixOS-Pulsar.options.home-manager.users.type.getSubOptions []";
+              };
+            };
+          };
+        };
 
         # Language-specific settings
         "[cpp]" = {
