@@ -34,6 +34,10 @@
           config.allowUnfree = true;
         };
         modules = [
+          # 把配置在 /etc 下存一份
+          {
+            environment.etc."current-config".source = ./.;
+          }
           ./system
           inputs.home-manager.nixosModules.home-manager
           {
@@ -45,6 +49,7 @@
             };
           }
         ];
+
       };
     };
 }
