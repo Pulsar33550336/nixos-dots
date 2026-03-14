@@ -304,6 +304,7 @@ in
         "chat.agent.maxRequests" = 0;
         "chat.agent.enabled" = false;
         "chat.disableAIFeatures" = true;
+        "inlineChat.affordance" = "off";
 
         # Telemetry settings
         "telemetry.feedback.enabled" = false;
