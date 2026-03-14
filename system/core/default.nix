@@ -37,8 +37,8 @@
 
   nix.settings = {
     substituters = [
-      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=10"
-      "https://mirrors.ustc.edu.cn/nix-channels/store?priority=5"
+      "https://mirrors.ustc.edu.cn/nix-channels/store?priority=10"
+      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=5"
       "https://cache.nixos.org"
     ];
     experimental-features = [
