@@ -755,13 +755,15 @@
     };
 
     user-templates = {
-      hyprland = {
-        input_path = "~/.config/noctalia/templates/colors.conf";
-        output_path = "~/.cache/hypr/hyprland-colors.conf";
-      };
-      hyprlock = {
-        input_path = "~/.config/noctalia/templates/hyprlock-colors.conf";
-        output_path = "~/.cache/hypr/hyprlock-colors.conf";
+      templates = {
+        hyprland = {
+          input_path = "~/.config/noctalia/templates/colors.conf";
+          output_path = "~/.cache/hypr/hyprland-colors.conf";
+        };
+        hyprlock = {
+          input_path = "~/.config/noctalia/templates/hyprlock-colors.conf";
+          output_path = "~/.cache/hypr/hyprlock-colors.conf";
+        };
       };
     };
 

@@ -30,5 +30,6 @@
     imagemagick
     libnotify
     xrdb
+    jq
   ];
 }
