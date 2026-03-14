@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   users.users.Pulsar = {
@@ -11,7 +11,10 @@
     shell = pkgs.zsh;
   };
 
-  environment.shells = with pkgs; [ bash zsh ];
+  environment.shells = with pkgs; [
+    bash
+    zsh
+  ];
   users.defaultUserShell = pkgs.zsh;
   programs.zsh.enable = true;
 }

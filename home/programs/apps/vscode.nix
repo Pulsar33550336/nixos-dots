@@ -6,10 +6,10 @@
   ...
 }:
 let
-  homeDir = config.home.homeDirectory;
-  dataDir = config.xdg.dataHome;
-  userDataDir = "${dataDir}/vscode/data";
-  extensionsDir = "${dataDir}/vscode/extensions";
+  # homeDir = config.home.homeDirectory;
+  # dataDir = config.xdg.dataHome;
+  # userDataDir = "${dataDir}/vscode/data";
+  # extensionsDir = "${dataDir}/vscode/extensions";
 
   marketplace =
     inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.hostPlatform.system}.vscode-marketplace;

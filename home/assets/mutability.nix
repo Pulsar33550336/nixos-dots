@@ -25,7 +25,7 @@ in
 
       fileAttrsType = lib.types.attrsOf (
         lib.types.submodule (
-          { config, ... }:
+          { ... }:
           {
             options.mutable = lib.mkOption {
               type = lib.types.bool;

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 let
   pam-fprint-grosshack = pkgs.callPackage ../pkgs/pam-fprint-grosshack.nix { };
