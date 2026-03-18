@@ -21,6 +21,8 @@ in
 
   services.fprintd.enable = true;
 
+  services.thermald.enable = true;
+
   security.pam.services = {
     sudo.fprintAuth = true;
     polkit-1 = {
