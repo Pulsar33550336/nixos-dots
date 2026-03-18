@@ -33,10 +33,6 @@
       nixosConfigurations.NixOS-Pulsar = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs; };
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          config.allowUnfree = true;
-        };
         modules = [
           inputs.distro-grub-themes.nixosModules.${system}.default
           # 把配置在 /etc 下存一份

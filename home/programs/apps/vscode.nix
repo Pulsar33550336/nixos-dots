@@ -6,23 +6,14 @@
   ...
 }:
 let
-  # homeDir = config.home.homeDirectory;
-  # dataDir = config.xdg.dataHome;
-  # userDataDir = "${dataDir}/vscode/data";
-  # extensionsDir = "${dataDir}/vscode/extensions";
-
   marketplace =
     inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.hostPlatform.system}.vscode-marketplace;
   marketplace-universal =
     inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.hostPlatform.system}.vscode-marketplace-universal;
 
-  # 包装 VSCode 包，注入路径参数
+  # 包装 VSCode 包，注入参数
   vscode-pkg = pkgs.vscode.override {
     commandLineArgs = [
-      # "--user-data-dir"
-      # "${userDataDir}"
-      # "--extensions-dir"
-      # "${extensionsDir}"
       "--ozone-platform-hint=auto"
       "--enable-wayland-ime"
       "--password-store=kwallet5"

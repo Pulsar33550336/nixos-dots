@@ -2,8 +2,6 @@
 
 {
   services.snapper = {
-    # enable = true;
-
     snapshotInterval = "hourly";
     cleanupInterval = "1d";
 
@@ -28,15 +26,6 @@
         NUMBER_LIMIT = "5"; # 额外保留 5 个手动快照
         NUMBER_CLEANUP = true; # 清理数量限制的快照
       };
-
-      # 可选：也可以为根目录创建配置
-      # root = {
-      #   SUBVOLUME = "/";
-      #   FSTYPE = "btrfs";
-      #   ALLOW_USERS = [ "Pulsar" ];
-      #   TIMELINE_CREATE = false; # 不自动创建根快照
-      #   NUMBER_LIMIT = "5"; # 只保留手动快照
-      # };
     };
 
     # 是否在启动时快照根目录（可选）
@@ -46,7 +35,7 @@
     persistentTimer = true;
   };
 
-  # 安装 GUI（可选）
+  # 安装 GUI
   environment.systemPackages = with pkgs; [
     snapper-gui
   ];

@@ -10,7 +10,6 @@
         enable = true;
         efiSupport = true;
         device = "nodev";
-        timeoutStyle = "hidden";
       };
       timeout = 0;
       efi = {
@@ -41,8 +40,8 @@
 
   nix.settings = {
     substituters = [
-      "https://mirrors.ustc.edu.cn/nix-channels/store"
       "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+      "https://mirrors.ustc.edu.cn/nix-channels/store"
       "https://cache.nixos.org"
     ];
     experimental-features = [
@@ -50,8 +49,6 @@
       "flakes"
     ];
   };
-
-  # services.cron.enable = true;
 
   security.sudo = {
     enable = true;
