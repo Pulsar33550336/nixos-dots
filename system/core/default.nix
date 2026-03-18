@@ -10,7 +10,6 @@
         enable = true;
         efiSupport = true;
         device = "nodev";
-        splashImage = null;
         timeoutStyle = "hidden";
       };
       timeout = 0;
@@ -31,6 +30,11 @@
     initrd.verbose = false;
     consoleLogLevel = 0;
     kernelPackages = pkgs.linuxPackages_latest;
+  };
+
+  distro-grub-themes = {
+    enable = true;
+    theme = "nixos";
   };
 
   time.timeZone = "Asia/Shanghai";

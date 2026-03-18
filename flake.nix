@@ -16,6 +16,7 @@
       url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
   };
 
   outputs =
@@ -25,15 +26,19 @@
       home-manager,
       ...
     }:
+    let
+      system = "x86_64-linux";
+    in
     {
       nixosConfigurations.NixOS-Pulsar = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        inherit system;
         specialArgs = { inherit inputs; };
         pkgs = import nixpkgs {
           system = "x86_64-linux";
           config.allowUnfree = true;
         };
         modules = [
+          inputs.distro-grub-themes.nixosModules.${system}.default
           # 把配置在 /etc 下存一份
           {
             environment.etc."current-config".source = ./.;
