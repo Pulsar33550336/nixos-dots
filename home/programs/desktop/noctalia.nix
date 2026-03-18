@@ -15,7 +15,7 @@
   programs.noctalia-shell = {
     enable = true;
     settings = {
-      settingsVersion = 54;
+      settingsVersion = 58;
       bar = {
         barType = "simple";
         position = "top";
@@ -32,12 +32,16 @@
         useSeparateOpacity = false;
         floating = false;
         marginVertical = 3;
+        middleClickAction = "none";
+        middleClickCommand = "";
+        middleClickFollowMouse = false;
         marginHorizontal = 3;
         frameThickness = 8;
         frameRadius = 12;
         outerCorners = false;
         hideOnOverview = false;
         displayMode = "always_visible";
+        enableExclusionZoneInset = false;
         autoHideDelay = 500;
         autoShowDelay = 150;
         showOnWorkspaceSwitch = true;
@@ -57,6 +61,7 @@
               diskPath = "/";
               iconColor = "none";
               id = "SystemMonitor";
+              showCpuCores = false;
               showCpuFreq = false;
               showCpuTemp = true;
               showCpuUsage = true;
@@ -119,6 +124,7 @@
               enableScrollWheel = true;
               focusedColor = "primary";
               followFocusedScreen = true;
+              fontWeight = "bold";
               groupedBorderOpacity = 1;
               hideUnoccupied = false;
               iconScale = 0.7;
@@ -127,6 +133,7 @@
               occupiedColor = "secondary";
               pillSize = 0.6000000000000001;
               showApplications = true;
+              showApplicationsHover = false;
               showBadge = true;
               showLabelsOnlyWhenOccupied = true;
               unfocusedIconsOpacity = 1;
@@ -226,12 +233,16 @@
         };
         mouseWheelAction = "workspace";
         reverseScroll = false;
+        rightClickAction = "controlCenter";
+        rightClickCommand = "";
+        rightClickFollowMouse = true;
         mouseWheelWrap = true;
         screenOverrides = [ ];
       };
       general = {
         avatarImage = "/home/Pulsar/.face";
         dimmerOpacity = 0.2;
+        enableBlurBehind = true;
         showScreenCorners = true;
         forceBlackScreenCorners = true;
         scaleRatio = 0.9500000000000001;
@@ -289,7 +300,9 @@
         panelBackgroundOpacity = 0.75;
         panelsAttachedToBar = false;
         settingsPanelMode = "centered";
-        settingsPanelSideBarCardStyle = false;
+        settingsPanelSideBarCardStyle = true;
+        scrollbarAlwaysVisible = true;
+        translucentWidgets = true;
       };
       location = {
         name = "Xi'an";
@@ -368,7 +381,7 @@
         clipboardWatchImageCommand = "wl-paste --type image --watch cliphist store";
         position = "center";
         pinnedApps = [ ];
-        useApp2Unit = false;
+        # useApp2Unit = false;
         sortByMostUsed = true;
         terminalCommand = "kitty -e";
         customLaunchPrefixEnabled = false;
@@ -379,7 +392,7 @@
         showIconBackground = false;
         enableSettingsSearch = true;
         enableWindowsSearch = true;
-        enableSessionSearch = true;
+        enableSessionSearch = false;
         ignoreMouseInput = false;
         screenshotAnnotationTool = "";
         overviewLayer = false;
@@ -387,7 +400,7 @@
       };
       controlCenter = {
         position = "close_to_bar_button";
-        openAtMouseOnBarRightClick = true;
+        # openAtMouseOnBarRightClick = true;
         diskPath = "/";
         shortcuts = {
           left = [
@@ -535,13 +548,13 @@
         disableDiscoverability = false;
       };
       sessionMenu = {
-        enableCountdown = true;
+        enableCountdown = false;
         countdownDuration = 3000;
         position = "center";
         showHeader = true;
         showKeybinds = true;
-        largeButtonsStyle = true;
-        largeButtonsLayout = "grid";
+        largeButtonsStyle = false;
+        largeButtonsLayout = "single-row";
         powerOptions = [
           {
             action = "lock";
@@ -589,8 +602,15 @@
             action = "rebootToUefi";
             command = "";
             countdownEnabled = true;
-            enabled = false;
-            keybind = "";
+            enabled = true;
+            keybind = "7";
+          }
+          {
+            action = "userspaceReboot";
+            command = "";
+            countdownEnabled = true;
+            enabled = true;
+            keybind = "8";
           }
         ];
       };
@@ -602,7 +622,7 @@
         location = "top_right";
         overlayLayer = true;
         backgroundOpacity = 1;
-        respectExpireTimeout = false;
+        respectExpireTimeout = true;
         lowUrgencyDuration = 3;
         normalUrgencyDuration = 8;
         criticalUrgencyDuration = 15;
@@ -641,10 +661,11 @@
       audio = {
         volumeStep = 2;
         volumeOverdrive = false;
-        cavaFrameRate = 30;
+        # cavaFrameRate = 30;
         visualizerType = "linear";
         mprisBlacklist = [ ];
         preferredPlayer = "";
+        spectrumFrameRate = 30;
         volumeFeedback = false;
         volumeFeedbackSoundFile = "";
       };
@@ -698,6 +719,10 @@
         manualSunrise = "06:30";
         manualSunset = "18:30";
       };
+      noctaliaPerformance = {
+        disableDesktopWidgets = true;
+        disableWallpaper = true;
+      };
       hooks = {
         enabled = false;
         wallpaperChange = "";
@@ -730,6 +755,7 @@
         enabled = true;
         overviewEnabled = true;
         gridSnap = true;
+        gridSnapScale = false;
         monitorWidgets = [
           {
             name = "eDP-1";
