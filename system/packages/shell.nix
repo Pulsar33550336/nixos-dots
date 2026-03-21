@@ -12,5 +12,6 @@
     bison
     gnum4
     gnumake
+    tree
   ];
 }
