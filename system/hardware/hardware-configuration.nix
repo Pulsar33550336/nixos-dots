@@ -44,6 +44,12 @@
     ];
   };
 
+  swapDevices = [
+    {
+      device = "/dev/disk/by-uuid/73967846-8577-48a7-85e1-f55b04ea9987";
+    }
+  ];
+
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   # hardware.cpu.intel.npu.enable = true;
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
