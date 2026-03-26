@@ -13,5 +13,6 @@
     gnum4
     gnumake
     tree
+    pkg-config
   ];
 }
