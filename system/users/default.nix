@@ -7,6 +7,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "podman"
     ];
     shell = pkgs.zsh;
   };

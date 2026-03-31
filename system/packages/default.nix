@@ -8,6 +8,7 @@
     ./python.nix
     ./desktop.nix
     ./network.nix
+    ./distrobox.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
