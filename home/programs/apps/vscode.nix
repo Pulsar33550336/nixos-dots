@@ -140,6 +140,7 @@ in
         };
         "workbench.editor.empty.hint" = "hidden";
         "workbench.welcomePage.walkthroughs.openOnInstall" = false;
+        "workbench.preferredDarkColorTheme" = "Dark Modern";
 
         # Window settings
         "window.autoDetectHighContrast" = false;

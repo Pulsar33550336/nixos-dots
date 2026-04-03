@@ -9,6 +9,7 @@
     ./desktop.nix
     ./network.nix
     ./distrobox.nix
+    ./tailscale.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
