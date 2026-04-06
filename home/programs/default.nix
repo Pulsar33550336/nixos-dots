@@ -4,7 +4,7 @@
 
 {
   imports = [
-    ./shell/zsh.nix
+    ./shell/zsh
     ./shell/nh.nix
     ./desktop/hyprland.nix
     ./desktop/noctalia.nix

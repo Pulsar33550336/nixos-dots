@@ -46,6 +46,7 @@ in
     profiles.default = {
       # 插件列表（在这里添加或删除插件）
       extensions = with marketplace; [
+        continue.continue
         maptz.regionfolder
         jeff-hykin.better-cpp-syntax
         ms-vscode.cpp-devtools
