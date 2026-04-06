@@ -1,5 +1,8 @@
-{ pkgs, ... }:
-
+{
+  pkgs,
+  lib,
+  ...
+}:
 {
   programs.hyprland.enable = true;
 
@@ -13,6 +16,10 @@
   ];
 
   services.desktopManager.plasma6.enable = true;
+  systemd.services.drkonqi = lib.mkForce {
+    enable = false;
+  };
+  systemd.services."drkonqi-coredump-processor@".wantedBy = lib.mkForce [ ];
   services.displayManager.sddm.enable = true;
   services.displayManager.autoLogin = {
     enable = true;
