@@ -11,6 +11,8 @@
     ./apps/git.nix
     ./apps/vscode.nix
     ./apps/kitty.nix
+    ./apps/libreoffice.nix
+    ./apps/pywalfox.nix
     ./apps
   ];
 }

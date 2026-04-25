@@ -32,4 +32,9 @@
     enable = true;
     pinentry.package = pkgs.pinentry-gtk2;
   };
+
+  home.packages = with pkgs; [
+    git-lfs
+    git-cliff
+  ];
 }

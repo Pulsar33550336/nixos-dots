@@ -17,6 +17,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -35,6 +40,7 @@
         specialArgs = { inherit inputs; };
         modules = [
           inputs.distro-grub-themes.nixosModules.${system}.default
+          inputs.lanzaboote.nixosModules.lanzaboote
           # 把配置在 /etc 下存一份
           {
             environment.etc."current-config".source = ./.;

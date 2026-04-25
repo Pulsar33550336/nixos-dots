@@ -329,6 +329,9 @@ in
           };
         };
 
+        # Continue
+        "continue.showInlineTip" = false;
+
         # Language-specific settings
         "[cpp]" = {
           "editor.defaultFormatter" = "xaver.clang-format";

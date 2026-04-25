@@ -10,6 +10,7 @@
     ./network.nix
     ./distrobox.nix
     ./tailscale.nix
+    ./sbctl.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

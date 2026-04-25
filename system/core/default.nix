@@ -1,15 +1,15 @@
 {
   pkgs,
+  lib,
   ...
 }:
 
 {
   boot = {
     loader = {
-      grub = {
-        enable = true;
-        efiSupport = true;
-        device = "nodev";
+      systemd-boot = {
+        enable = lib.mkForce false;
+        efiShell = true;
       };
       timeout = 0;
       efi = {
@@ -29,6 +29,11 @@
     initrd.verbose = false;
     consoleLogLevel = 0;
     kernelPackages = pkgs.linuxPackages_latest;
+  };
+
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
   };
 
   distro-grub-themes = {
