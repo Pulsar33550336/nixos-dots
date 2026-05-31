@@ -47,4 +47,18 @@
   ];
 
   programs.firefox.enable = true;
+
+  programs.thunderbird = {
+    enable = true;
+    package = pkgs.thunderbird-bin;
+  };
+
+  services.printing.enable = true;
+
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+    openFirewall = true;
+  };
+
 }

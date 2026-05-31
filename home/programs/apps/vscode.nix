@@ -36,6 +36,7 @@ in
 
   home.packages = with pkgs; [
     nixd
+    tinymist
   ];
 
   programs.vscode = {
@@ -46,6 +47,7 @@ in
     profiles.default = {
       # 插件列表（在这里添加或删除插件）
       extensions = with marketplace; [
+        sumneko.lua
         continue.continue
         maptz.regionfolder
         jeff-hykin.better-cpp-syntax
@@ -107,6 +109,7 @@ in
         "editor.cursorSmoothCaretAnimation" = "explicit";
         "editor.inlayHints.enabled" = "off";
         "editor.defaultFormatter" = "llvm-vs-code-extensions.vscode-clangd";
+        "editor.accessibilitySupport" = "off";
 
         # Unicode settings
         "editor.unicodeHighlight.allowedLocales" = {
@@ -331,6 +334,9 @@ in
 
         # Continue
         "continue.showInlineTip" = false;
+
+        # Tinymist
+        "tinymist.serverPath" = "tinymist";
 
         # Language-specific settings
         "[cpp]" = {

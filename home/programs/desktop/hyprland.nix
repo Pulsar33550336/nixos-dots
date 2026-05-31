@@ -13,6 +13,8 @@
     '';
   };
 
+  home.file.".local/share/hyprland-stubs".source = "${pkgs.hyprland}/share/hypr/stubs";
+
   home.packages = with pkgs; [
     hyprpaper
     hyprlock
@@ -30,5 +32,6 @@
     libnotify
     xrdb
     jq
+    tesseract
   ];
 }

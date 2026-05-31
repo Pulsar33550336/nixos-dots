@@ -9,7 +9,7 @@
     loader = {
       systemd-boot = {
         enable = lib.mkForce false;
-        efiShell = true;
+        # efiShell = true;
       };
       timeout = 0;
       efi = {

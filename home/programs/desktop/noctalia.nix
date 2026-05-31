@@ -15,7 +15,7 @@
   programs.noctalia-shell = {
     enable = true;
     settings = {
-      settingsVersion = 58;
+      settingsVersion = 59;
       bar = {
         barType = "simple";
         position = "top";
@@ -30,7 +30,6 @@
         fontScale = 1;
         backgroundOpacity = 0;
         useSeparateOpacity = false;
-        floating = false;
         marginVertical = 3;
         middleClickAction = "none";
         middleClickCommand = "";
@@ -49,6 +48,7 @@
           left = [
             {
               colorizeSystemIcon = "none";
+              colorizeSystemText = "none";
               customIconPath = "";
               enableColorization = false;
               icon = "rocket";
@@ -101,6 +101,7 @@
               maxWidth = 205;
               scrollingMode = "hover";
               showIcon = true;
+              showText = true;
               textColor = "none";
               useFixedWidth = false;
             }
@@ -218,6 +219,7 @@
             {
               colorizeDistroLogo = false;
               colorizeSystemIcon = "none";
+              colorizeSystemText = "none";
               customIconPath = "";
               enableColorization = false;
               icon = "noctalia";
@@ -259,6 +261,7 @@
         lockScreenAnimations = true;
         lockOnSuspend = true;
         showSessionButtonsOnLockScreen = true;
+        smoothScrollEnabled = true;
         showHibernateOnLockScreen = true;
         enableLockScreenMediaControls = false;
         enableShadows = false;
@@ -311,12 +314,14 @@
         name = "Xi'an";
         weatherEnabled = true;
         weatherShowEffects = true;
+        weatherTaliaMascotAlways = false;
         useFahrenheit = false;
         use12hourFormat = false;
         showWeekNumberInCalendar = false;
         showCalendarEvents = true;
         showCalendarWeather = true;
         analogClockInCalendar = false;
+        autoLocate = false;
         firstDayOfWeek = -1;
         hideWeatherTimezone = false;
         hideWeatherCityName = false;
@@ -354,11 +359,20 @@
         wallpaperChangeMode = "random";
         randomIntervalSec = 300;
         transitionDuration = 1500;
-        transitionType = "random";
+        transitionType = [
+          "fade"
+          "disc"
+          "stripes"
+          "wipe"
+          "pixelate"
+          "honeycomb"
+        ];
+        useOriginalImages = false;
         skipStartupTransition = true;
         transitionEdgeSmoothness = 0.05;
         panelPosition = "follow_bar";
         hideWallpaperFilenames = false;
+        linkLightAndDarkWallpapers = true;
         overviewBlur = 0.4;
         overviewTint = 0.6;
         useWallhaven = false;
@@ -379,6 +393,8 @@
         enableClipboardHistory = true;
         autoPasteClipboard = false;
         enableClipPreview = true;
+        enableClipboardChips = true;
+        enableClipboardSmartIcons = true;
         clipboardWrapText = true;
         clipboardWatchTextCommand = "wl-paste --type text --watch cliphist store";
         clipboardWatchImageCommand = "wl-paste --type image --watch cliphist store";
@@ -535,12 +551,12 @@
         sitOnFrame = false;
         showDockIndicator = false;
         indicatorThickness = 3;
+        launcherIcon = "";
+        launcherUseDistroLogo = false;
         indicatorColor = "primary";
         indicatorOpacity = 0.6;
       };
       network = {
-        wifiEnabled = true;
-        airplaneModeEnabled = false;
         bluetoothAutoConnect = true;
         bluetoothRssiPollingEnabled = false;
         bluetoothRssiPollIntervalMs = 10000;
@@ -669,6 +685,7 @@
         mprisBlacklist = [ ];
         preferredPlayer = "";
         spectrumFrameRate = 30;
+        spectrumMirrored = true;
         volumeFeedback = false;
         volumeFeedbackSoundFile = "";
       };
@@ -683,6 +700,7 @@
         predefinedScheme = "Eldritch";
         darkMode = true;
         schedulingMode = "off";
+        syncGsettings = true;
         manualSunrise = "06:30";
         manualSunset = "18:30";
         generationMethod = "tonal-spot";
@@ -730,6 +748,7 @@
         enabled = false;
         wallpaperChange = "";
         darkModeChange = "";
+        colorGeneration = "";
         screenLock = "";
         screenUnlock = "";
         performanceModeEnabled = "";
@@ -739,6 +758,7 @@
       };
       plugins = {
         autoUpdate = true;
+        notifyUpdates = true;
       };
       idle = {
         enabled = true;
@@ -785,8 +805,8 @@
     user-templates = {
       templates = {
         hyprland = {
-          input_path = "~/.config/noctalia/templates/colors.conf";
-          output_path = "~/.cache/hypr/hyprland-colors.conf";
+          input_path = "~/.config/noctalia/templates/colors.lua";
+          output_path = "~/.cache/hypr/hyprland-colors.lua";
         };
         hyprlock = {
           input_path = "~/.config/noctalia/templates/hyprlock-colors.conf";
@@ -814,9 +834,9 @@
           enabled = false;
           sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
         };
-        keybind-cheatsheet = {
+        "f4c24d:keybind-cheatsheet" = {
           enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+          sourceUrl = "https://github.com/Pulsar33550336/pulsar-ns-plugins";
         };
         polkit-agent = {
           enabled = true;
@@ -851,11 +871,28 @@
     };
 
     pluginSettings = {
-      keybind-cheatsheet = {
+      "f4c24d:keybind-cheatsheet" = {
         windowWidth = 1200;
-        modKeyVariable = "Super";
         columnCount = 3;
         autoHeight = true;
+        showUndescribedBinds = true;
+
+        keyColorAlt = "#69787e";
+        keyColorXF86 = "#4ECDC4";
+        keyColorPrint = "#95E1D3";
+        keyColorNumeric = "#A8DADC";
+        keyColorMouse = "#bcc5eb";
+        keyColorSuper = "#3f484b";
+        keyColorCtrl = "#3f484b";
+        keyColorShift = "#69787e";
+        keyColorDefault = "#6C757D";
+        keyLabelColor = "#FFFFFF";
+        descriptionTextColor = "#E0E0E0";
+
+        useMacSymbol = false;
+        useFnSymbol = true;
+        useMouseSymbol = false;
+        superKeyText = "";
       };
       pomodoro = {
         workDuration = 25;
