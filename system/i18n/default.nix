@@ -38,8 +38,8 @@
   fonts = {
     packages = with pkgs; [
       noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-cjk-serif
+      noto-fonts-cjk-sans-static
+      noto-fonts-cjk-serif-static
     ];
     fontconfig = {
       defaultFonts = {

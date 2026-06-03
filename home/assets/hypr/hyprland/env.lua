@@ -3,7 +3,7 @@ hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 
 -- Themes
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
-hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
+hl.env("QT_QPA_PLATFORMTHEME", "kde")
 hl.env("XDG_MENU_PREFIX", "plasma-")
 
 hl.env("LANG", "zh_CN.UTF-8")

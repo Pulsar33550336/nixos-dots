@@ -1,5 +1,4 @@
 {
-  pkgs,
   inputs,
   ...
 }:
@@ -7,10 +6,6 @@
   imports = [
     inputs.noctalia.homeModules.default
   ];
-
-  home.sessionVariables = {
-    NIXPKGS_QT6_QML_IMPORT_PATH = "${pkgs.kdePackages.kirigami.unwrapped}/lib/qt-6/qml";
-  };
 
   programs.noctalia-shell = {
     enable = true;
