@@ -39,7 +39,6 @@
         inherit system;
         specialArgs = { inherit inputs; };
         modules = [
-          inputs.lanzaboote.nixosModules.lanzaboote
           # 把配置在 /etc 下存一份
           {
             environment.etc."current-config".source = ./.;

@@ -35,6 +35,10 @@
     fcitx5.waylandFrontend = true;
   };
 
+  services.xserver.xkb.layout = "us";
+
+  time.timeZone = "Asia/Shanghai";
+
   fonts = {
     packages = with pkgs; [
       noto-fonts

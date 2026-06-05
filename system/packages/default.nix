@@ -11,6 +11,8 @@
     ./distrobox.nix
     ./tailscale.nix
     ./sbctl.nix
+    ./firefox.nix
+    ./thunderbird.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
