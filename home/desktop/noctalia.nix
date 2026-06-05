@@ -7,6 +7,8 @@
     inputs.noctalia.homeModules.default
   ];
 
+  xdg.configFile."noctalia/templates".source = ../assets/noctalia;
+
   programs.noctalia-shell = {
     enable = true;
     settings = {
@@ -176,15 +178,6 @@
               };
               id = "plugin:pomodoro";
             }
-            # {
-            #   defaultSettings = {
-            #     currentIconName = "world-download";
-            #     hideOnZero = false;
-            #     updateIntervalMinutes = 30;
-            #     updateTerminalCommand = "foot -e";
-            #   };
-            #   id = "plugin:update-count";
-            # }
             {
               deviceNativePath = "BAT0";
               displayMode = "graphic";
@@ -221,14 +214,6 @@
               id = "ControlCenter";
               useDistroLogo = false;
             }
-            # {
-            #   defaultSettings = {
-            #     enableCross = true;
-            #     enableWindowsSelection = true;
-            #     screenshotEditor = "swappy";
-            #   };
-            #   id = "plugin:screen-shot-and-record";
-            # }
           ];
         };
         mouseWheelAction = "workspace";
@@ -857,10 +842,6 @@
           enabled = true;
           sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
         };
-        # update-count = {
-        #   enabled = true;
-        #   sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-        # };
       };
       version = 2;
     };
@@ -915,9 +896,6 @@
       timer = {
         compactMode = true;
       };
-      # update-count = {
-      #   updateTerminalCommand = "kitty -e {}";
-      # };
     };
   };
 }

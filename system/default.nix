@@ -10,6 +10,4 @@
     ./users
     ./packages
   ];
-
-  services.flatpak.enable = true;
 }

@@ -30,8 +30,8 @@ let
 in
 {
   imports = [
-    (import ../../assets/mutability.nix { inherit config lib; })
-    (import ../../assets/vscode.nix { inherit config lib pkgs; })
+    (import ../assets/mutability.nix { inherit config lib; })
+    (import ../assets/vscode.nix { inherit config lib pkgs; })
   ];
 
   home.packages = with pkgs; [

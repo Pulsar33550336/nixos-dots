@@ -10,14 +10,14 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
-
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v1.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -39,7 +39,6 @@
         inherit system;
         specialArgs = { inherit inputs; };
         modules = [
-          inputs.distro-grub-themes.nixosModules.${system}.default
           inputs.lanzaboote.nixosModules.lanzaboote
           # 把配置在 /etc 下存一份
           {

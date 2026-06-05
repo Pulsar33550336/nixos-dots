@@ -42,10 +42,5 @@
       shell = "zsh";
       url_style = "straight";
     };
-
-    # extraConfig = ''
-    #   # Noctalia
-    #   include themes/noctalia.conf
-    # '';
   };
 }

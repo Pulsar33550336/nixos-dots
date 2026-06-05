@@ -16,16 +16,18 @@
   ];
 
   services.desktopManager.plasma6.enable = true;
-  systemd.services.drkonqi = lib.mkForce {
-    enable = false;
+  systemd.services = {
+    drkonqi = lib.mkForce { enable = false; };
+    "drkonqi-coredump-processor@".wantedBy = lib.mkForce [ ];
   };
-  systemd.services."drkonqi-coredump-processor@".wantedBy = lib.mkForce [ ];
-  services.displayManager.sddm.enable = true;
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "Pulsar";
+  services.displayManager = {
+    sddm.enable = true;
+    autoLogin = {
+      enable = true;
+      user = "Pulsar";
+    };
+    defaultSession = "hyprland";
   };
-  services.displayManager.defaultSession = "hyprland";
 
   services.xserver.xkb.layout = "us";
 
@@ -57,8 +59,9 @@
 
   services.avahi = {
     enable = true;
-    nssmdns = true;
+    nssmdns4 = true;
     openFirewall = true;
   };
 
+  services.flatpak.enable = true;
 }

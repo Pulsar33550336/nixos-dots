@@ -7,10 +7,7 @@
 {
   boot = {
     loader = {
-      systemd-boot = {
-        enable = lib.mkForce false;
-        # efiShell = true;
-      };
+      systemd-boot.enable = lib.mkForce false;
       timeout = 0;
       efi = {
         canTouchEfiVariables = true;
@@ -18,27 +15,25 @@
       };
     };
 
-    initrd.systemd.enable = true;
-    initrd.availableKernelModules = [ "i915" ];
+    initrd = {
+      systemd.enable = true;
+      availableKernelModules = [ "i915" ];
+      verbose = false;
+    };
+
     plymouth.enable = true;
 
     kernelParams = [
       "quiet"
       "splash"
     ];
-    initrd.verbose = false;
     consoleLogLevel = 0;
     kernelPackages = pkgs.linuxPackages_latest;
-  };
 
-  boot.lanzaboote = {
-    enable = true;
-    pkiBundle = "/var/lib/sbctl";
-  };
-
-  distro-grub-themes = {
-    enable = true;
-    theme = "nixos";
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/var/lib/sbctl";
+    };
   };
 
   time.timeZone = "Asia/Shanghai";

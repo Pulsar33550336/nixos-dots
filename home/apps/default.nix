@@ -2,14 +2,37 @@
   pkgs,
   ...
 }:
-
 {
+  imports = [
+    ./git.nix
+    ./gpg.nix
+    ./vscode.nix
+    ./kitty.nix
+    ./libreoffice.nix
+    ./pywalfox.nix
+    ./nh.nix
+  ];
 
   home.packages = with pkgs; [
     splayer
     fluent-icon-theme
     nixfmt
     obsidian
+    neovim
+    wl-clipboard
+    grim
+    slurp
+    swappy
+    fuzzel
+    playerctl
+    wlsunset
+    wf-recorder
+    imagemagick
+    libnotify
+    xrdb
+    jq
+    tesseract
+    opencode
   ];
 
   xdg.dataFile."applications/qq.desktop".text = ''

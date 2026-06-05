@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  pam-fprint-grosshack = pkgs.callPackage ../pkgs/pam-fprint-grosshack.nix { };
+  pam-fprint-grosshack = pkgs.callPackage ../../pkgs/pam-fprint-grosshack.nix { };
 in
 {
   imports = [
@@ -22,6 +22,8 @@ in
   services.fprintd.enable = true;
 
   services.thermald.enable = true;
+
+  hardware.bluetooth.enable = true;
 
   security.pam.services = {
     sudo.fprintAuth = true;

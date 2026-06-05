@@ -361,7 +361,7 @@ hl.bind("SUPER + I",
     function()
         -- 注意：这里保留了 XDG_CURRENT_DESKTOP 环境变量设置
         -- 如果 launch_first_available 不支持环境变量，可能需要调整
-        launch_first_available("systemsettings", "gnome-control-center", "better-control")
+        launch_first_available(ipc .. " settings toggle", "systemsettings", "gnome-control-center", "better-control")
     end,
     { description = "[应用 8] 设置应用" })
 

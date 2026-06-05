@@ -7,7 +7,7 @@
     ./rust.nix
     ./python.nix
     ./desktop.nix
-    ./network.nix
+    ./clash-verge.nix
     ./distrobox.nix
     ./tailscale.nix
     ./sbctl.nix
