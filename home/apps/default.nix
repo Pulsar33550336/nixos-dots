@@ -7,7 +7,7 @@
     ./git.nix
     ./gpg.nix
     ./vscode.nix
-    ./kitty.nix
+    ./ghostty.nix
     ./libreoffice.nix
     ./pywalfox.nix
     ./nh.nix

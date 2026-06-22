@@ -299,7 +299,7 @@ end
 -- 9. 应用
 hl.bind("SUPER + Return",
     function()
-        launch_first_available("kitty -1", "foot", "alacritty", "wezterm", "konsole", "kgx",
+        launch_first_available(os.getenv("TERMINAL") or "", "kitty -1", "foot", "alacritty", "wezterm", "konsole", "kgx",
             "uxterm", "xterm")
     end,
     { description = "[应用 1] 终端" })

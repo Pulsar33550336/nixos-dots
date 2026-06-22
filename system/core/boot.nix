@@ -20,6 +20,7 @@
 
     initrd = {
       systemd.enable = true;
+      # TODO: Host-specific
       availableKernelModules = [ "i915" ];
       verbose = false;
     };

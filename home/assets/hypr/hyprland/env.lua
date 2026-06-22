@@ -16,14 +16,16 @@ hl.env("NOCTALIA_PAM_SERVICE", "noctalia-shell")
 -- hl.env("WLR_NO_HARDWARE_CURSORS", "1")
 
 -- Terminal application
-hl.env("TERMINAL", "kitty")
+hl.env("TERMINAL", "ghostty +new-window")
 
 -- 环境变量
 hl.env("XCURSOR_SIZE", "24")
-hl.env("QT_IM_MODULE", "fcitx")
 hl.env("GDK_DPI_SCALE", "1")
 hl.env("QT_AUTO_SCREEN_SCALE_FACTOR", "0")
+
+-- im
+hl.env("QT_IM_MODULE", "fcitx")
 hl.env("GTK_IM_MODULE", "fcitx")
 hl.env("XMODIFIERS", "@im=fcitx")
 hl.env("SDL_IM_MODULE", "fcitx")
-hl.env("GLFW_IM_MODULE", "fcitx")
+hl.env("GLFW_IM_MODULE", "ibus")

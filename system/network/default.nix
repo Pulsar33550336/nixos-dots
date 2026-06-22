@@ -1,5 +1,5 @@
 { ... }:
-
+# TODO: Host-specific (?)
 {
   networking = {
     hostName = "NixOS-Pulsar";

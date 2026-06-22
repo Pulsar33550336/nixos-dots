@@ -29,7 +29,7 @@
         "sudo"
         "command-not-found"
         "qrcode"
-        "direnv"
+        # "direnv"
         "z"
       ];
       theme = "";

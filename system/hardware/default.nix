@@ -1,3 +1,5 @@
+# TODO: Host-specific
+
 { pkgs, ... }:
 
 let

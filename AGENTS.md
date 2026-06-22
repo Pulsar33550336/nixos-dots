@@ -10,47 +10,40 @@
 ## 关键命令
 
 ```bash
-# 构建并切换系统（nh 已预配 flake 路径）
-sudo nh os switch
-
-# 仅构建（不切换）
-nh os build
-
-# 构建并切换 home 配置
-nh home switch
-
-# 清理旧 generations（每周自动，手动触发）
-nh clean all --keep 5 --keep-since 3d
+sudo nh os switch   # 构建并切换系统（nh 已预配 flake 路径）
+nh os build         # 仅构建
+nh home switch      # 构建并切换 home 配置
+nh clean all --keep 5 --keep-since 3d   # 手动清理旧 generations（自动每周触发）
 ```
 
 ## 目录结构
 
 ```
 flake.nix          # 入口：nixosSystem NixOS-Pulsar
-flake.lock
 system/            # NixOS 模块
-  core/            #   boot（lanzaboote, GRUB主题）、nix配置（USTC/清华镜像源）、时区、ssh远程构建
-  desktop/         #   Hyprland + SDDM自动登录 + Plasma6（portal走KDE）
-  hardware/        #   硬件配置 + snapper（btrfs快照/home）
+  core/            #   boot, nix配置(USTC/清华镜像), ssh远程构建, sudo
+  desktop/         #   Hyprland, KDE(sddm/plasma6), portal(KDE), cups, flatpak, fonts
+  hardware/        #   硬件配置 + snapper(btrfs快照/home) + bluetooth
   network/         #   NetworkManager, firewall disabled
-  i18n/            #   国际化
-  users/           #   用户 Pulsar（zsh, networkmanager/wheel/podman组）
+  i18n/            #   国际化 + fcitx5(rime-ice) + 字体 + 时区
+  users/           #   Pulsar(zsh, networkmanager/wheel/podman组)
   packages/        #   按语言/用途拆分的包集合
-  pkgs/            #   自定义包（pam-fprint-grosshack）
 home/              # home-manager 配置
-  programs/        #   shell(zsh+nh), desktop(hyprland, noctalia), apps(git,vscode,kitty,...)
-  dots/            #   dotfiles 软链接（hypr, noctalia, p10k, MacOS光标）
-  assets/          #   静态资源文件
+  apps/            #   git, gpg, vscode, kitty, libreoffice, nh, 杂项包
+  desktop/         #   hyprland, noctalia shell(~900行), env变量, fontconfig
+  shell/           #   zsh
+  assets/          #   dotfiles模板(hypr, noctalia, p10k, MacOS光标)
+pkgs/              #   自定义包(pam-fprint-grosshack)
 ```
 
 ## 重要约定
 
 - **`system/hardware/hardware-configuration.nix`** 由 `nixos-generate-config` 自动生成，在 `.gitignore` 中，不要手动修改
-- **noctalia-shell**：完整的桌面 shell（bar、锁屏、控制中心、通知等），配置在 `home/programs/desktop/noctalia.nix`（~900行）
+- **noctalia-shell**：完整的桌面 shell（bar、锁屏、控制中心、通知等），配置在 `home/desktop/noctalia.nix`（~900行）
 - **Lua LSP** 需要 hyprland stubs，配在 `.luarc.json`，路径 `~/.local/share/hyprland-stubs`
 - **Nix 格式化**：nixfmt
 - **VSCode Nix LSP**：nixd，expr 指向 `(builtins.getFlake "/home/Pulsar/nix").nixosConfigurations.NixOS-Pulsar.options`
 - **远程构建**：`server`（IPv6, port 2222, 24 jobs）
 - **Git 签名**：key `2B867C4832784EE0`，默认签名提交
 - **镜像源**优先使用 USTC/清华，其次 `cache.nixos.org`
-- **allowUnfree = true**
+- **allowUnfree = true`

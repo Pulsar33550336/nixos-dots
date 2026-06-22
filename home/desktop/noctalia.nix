@@ -277,7 +277,7 @@
         reverseScroll = false;
       };
       ui = {
-        fontDefault = "Noto Sans CJK SC";
+        fontDefault = "Noto Sans CJK SC Medium";
         fontFixed = "Maple Mono Normal NL NF CN";
         fontDefaultScale = 1;
         fontFixedScale = 1;
