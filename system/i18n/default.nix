@@ -39,11 +39,23 @@
 
   time.timeZone = "Asia/Shanghai";
 
+  # 我不要 VF！
+  nixpkgs.overlays = [
+    (self: super: {
+      noto-fonts-cjk-sans = super.noto-fonts-cjk-sans.override {
+        static = true;
+      };
+      noto-fonts-cjk-serif = super.noto-fonts-cjk-serif.override {
+        static = true;
+      };
+    })
+  ];
+
   fonts = {
     packages = with pkgs; [
       noto-fonts
-      noto-fonts-cjk-sans-static
-      noto-fonts-cjk-serif-static
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
     ];
     fontconfig = {
       defaultFonts = {

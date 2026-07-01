@@ -11,5 +11,6 @@
     ./xdg_portal.nix
     ./cups.nix
     ./flatpak.nix
+    ./niri.nix
   ];
 }

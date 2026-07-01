@@ -3,13 +3,13 @@
 {
   environment.systemPackages = with pkgs; [
     gcc
-    clang
+    llvmPackages_22.clang
     gdb
     cmake
     ninja
     meson
     valgrind
     cppcheck
-    clang-tools
+    llvmPackages_22.clang-tools
   ];
 }

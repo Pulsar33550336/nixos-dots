@@ -11,6 +11,8 @@
     ./libreoffice.nix
     ./pywalfox.nix
     ./nh.nix
+    ./just.nix
+    ./kdl.nix
   ];
 
   home.packages = with pkgs; [
