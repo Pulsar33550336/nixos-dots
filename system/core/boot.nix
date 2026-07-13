@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   inputs,
   ...
@@ -26,15 +25,6 @@
     };
 
     plymouth.enable = true;
-
-    kernelParams = [
-      "quiet"
-      "splash"
-    ];
-    # 导致无法休眠，屏蔽
-    blacklistedKernelModules = [ "bitland_mifs_wmi" ];
-    consoleLogLevel = 0;
-    kernelPackages = pkgs.linuxPackages_latest;
 
     lanzaboote = {
       enable = true;

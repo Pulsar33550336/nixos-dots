@@ -1,14 +1,5 @@
 { ... }: {
   nixpkgs.overlays = [
-    # libwebsockets 的修复，未来修复合并后删除。
-    (final: prev: {
-      libwebsockets = prev.libwebsockets.overrideAttrs (old: {
-        postPatch = (old.postPatch or "") + ''
-          substituteInPlace cmake/lws_config.h.in \
-            --replace-fail '"''${CMAKE_INSTALL_PREFIX}/''${LWS_INSTALL_LIB_DIR}"' '"''${CMAKE_INSTALL_FULL_LIBDIR}"'
-        '';
-      });
-    })
     # 使用 vhs 的 Fork 版本 agentstation/vhs
     (self: super: {
       vhs = super.vhs.overrideAttrs (oldAttrs: {

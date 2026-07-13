@@ -124,6 +124,12 @@
         enableWindowsSelection = true;
         screenshotEditor = "swappy";
         enableCross = true;
+        keepSourceScreenshot = false;
+        pngCompressionLevel = 1;
+        savePath = "~/Pictures/Screenshots";
+        recordingSavePath = "~/Videos";
+        recordingNotifications = false;
+        notificationsEnabled = false;
       };
       timer = {
         compactMode = true;
