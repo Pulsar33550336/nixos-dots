@@ -1,16 +1,11 @@
 {
   ...
 }:
-
 {
-
   imports = [
-    ./boot.nix
+    ./i18n.nix
     ./nix.nix
     ./ssh.nix
     ./sudo.nix
-    ./kernel.nix
   ];
-
-  system.stateVersion = "25.11";
 }

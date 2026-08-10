@@ -1,13 +1,14 @@
-{ ... }:
-
-{
+{ lib, ... }: {
   imports = [
+    ./boot
     ./core
-    ./network
-    ./hardware
+    ./DE
     ./desktop
-    ./i18n
+    ./hardware
+    ./network
     ./users
-    ./packages
-  ];
+  ] ++ (import ../lib/scan-modules.nix { inherit lib; }).scanModules ./packages;
+
+  nixpkgs.config.allowUnfree = true;
+  system.stateVersion = "25.11";
 }

@@ -1,6 +1,6 @@
 # TODO: Host-specific
 
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 let
   pam-fprint-grosshack = pkgs.callPackage ../../pkgs/pam-fprint-grosshack.nix { };
@@ -27,23 +27,27 @@ in
 
   hardware.bluetooth.enable = true;
 
+  security.polkit.enable = true;
+
   security.pam.services = {
-    sudo.fprintAuth = true;
+    sudo.fprintAuth = config.services.fprintd.enable;
     polkit-1 = {
       fprintAuth = false;
       rules.auth = {
         fingerprint = {
+          enable = config.services.fprintd.enable;
           order = 100;
           control = "sufficient";
           modulePath = "${pam-fprint-grosshack}/lib/security/pam_fprintd_grosshack.so";
         };
       };
     };
-    kde-fingerprint.fprintAuth = true;
+    kde-fingerprint.fprintAuth = config.services.fprintd.enable;
 
     noctalia-shell = {
       rules.auth = {
         fprintd = {
+          enable = config.services.fprintd.enable;
           order = 0;
           control = "sufficient";
           modulePath = "${pkgs.fprintd}/lib/security/pam_fprintd.so";

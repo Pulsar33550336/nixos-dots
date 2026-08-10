@@ -28,9 +28,7 @@
 
   outputs =
     inputs@{
-      self,
       nixpkgs,
-      home-manager,
       ...
     }:
     let
@@ -47,16 +45,7 @@
           }
           ./overlays
           ./system
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "bak";
-              extraSpecialArgs = { inherit inputs; };
-              users.Pulsar = import ./home;
-            };
-          }
+          ./home
         ];
 
       };
