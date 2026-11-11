@@ -27,7 +27,10 @@ in
 
   hardware.bluetooth.enable = true;
 
-  security.polkit.enable = true;
+  security.polkit = {
+    enable = true;
+    enablePkexecWrapper = true;
+  };
 
   security.pam.services = {
     sudo.fprintAuth = config.services.fprintd.enable;
