@@ -25,6 +25,10 @@ community_ids = ["pywalfox"]
 input_path = "~/.config/noctalia/templates/hyprlock-colors.conf"
 output_path = "~/.cache/hypr/hyprlock-colors.conf"
 
+[theme.templates.user.niri]
+input_path = "~/.config/noctalia/templates/niri-colors.kdl"
+output_path = "~/.config/niri/noctalia.kdl"
+
 [location]
 auto_locate = false
 address = "Xi'an"
