@@ -3,8 +3,6 @@
   ...
 }:
 {
-  # hyprlock 仍然用在 niri 里（Ctrl+Mod+Alt+R），但 Hyprland 本身已经移除，
-  # 所以只把 hyprlock 需要的那两个路径交给 HM 管。
   xdg.configFile."hypr/hyprlock.conf".source = ../assets/hyprlock/hyprlock.conf;
   xdg.configFile."hypr/hyprlock".source = ../assets/hyprlock/hyprlock;
 
