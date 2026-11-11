@@ -1,5 +1,6 @@
 {
   inputs,
+  pkgs,
   ...
 }:
 {
@@ -11,6 +12,17 @@
 
   programs.noctalia-shell = {
     enable = true;
+    # noctalia 钉的 noctalia-qs (2026-06-07) 缺 quickshell 的 Qt 6.12 兼容
+    # 修复 (5d5d498)，在 Qt 6.12 + GCC 16 下编译失败。这里在构建前应用
+    # 仓库里的补丁（含 fork 独有 Niri IPC 的同类修改），保留 noctalia 的
+    # 全部功能；切到 v5 后可删除。
+    package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
+      quickshell =
+        inputs.noctalia.inputs.noctalia-qs.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs
+          (old: {
+            patches = (old.patches or [ ]) ++ [ ../../../pkgs/noctalia-qs/qt612.patch ];
+          });
+    };
     # 将长长的配置 nix 化并写进配置中是一种愚蠢的行为
     settings = ../assets/noctalia-config.json;
     # 不过剩下的拿 nix 声明式配置还是不错的
