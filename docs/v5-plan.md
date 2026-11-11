@@ -76,108 +76,72 @@ nix profile install \
 
 **回滚**：`nix profile remove noctalia`，`pkill noctalia`，重新 `noctalia-shell`。
 
-### Phase 2 — 把 v5 配置从 state 迁到仓库（2-3h）
+### Phase 2 — 把 v5 配置从 state 迁到仓库（✅ 2026-11-11 执行）
 
-- [ ] 先挪走 v4 的 `user-templates.toml`（HM 软链，v5 会把它当配置读，导出里会混进 `[templates.hyprland]` / `[templates.hyprlock]`）：
-      `mv ~/.config/noctalia/user-templates.toml ~/.config/noctalia/user-templates.toml.v4bak`
-- [ ] 导出合并配置：`noctalia config export > /tmp/noctalia-export.toml`
-- [ ] 人工修剪（对照 §3 清单）：
-      - 删 `[plugins].enabled` 里 `pulsar/screenshot-overlay`（不存在的 id）、`avivbintangaringga/nix-monitor`（D3）、`kenn/keybind-cheatsheet`（D1）
-      - 删 `[wallpaper.default]`、`[wallpaper.last]`、`[wallpaper.monitors.*]`（D6）
-      - 删 `[[plugins.source]]` 里 `ssr-dev` 整条（Phase 5 改用 `xdg.dataFile` 投放、走内置 local 源）
-      - 补 v4 有、v5 漏的行为：`[idle]`、`[nightlight]`、`[accessibility] ui_scale`、`[weather]`、`[theme.templates]`、`[shell] font_family`
-- [ ] 加插件声明：
-      ```toml
-      [plugins]
-      auto_update = "none"
-      enabled = ["pulsar/screen-shot-and-record", "noctalia/timer", "thepunkoff/pomodoro"]
+实际执行的步骤：
 
-      [plugin_settings."pulsar/screen-shot-and-record"]
-      enable_cross = true
-      enable_windows_selection = true
-      screenshot_editor = "swappy"
-      keep_source_screenshot = false
-      png_compression_level = 1
-      save_path = "~/Pictures/Screenshots"
-      recording_save_path = "~/Videos"
-      notifications_enabled = false
-      recording_notifications = false
+- [x] 删掉 v4 的 HM 软链：`~/.config/noctalia/{settings.json,plugins.json,templates,user-templates.toml}`
+- [x] `noctalia config export` → `/tmp/n5-export.toml`（此时已无 `[templates.*]` 噪音）
+- [x] 修剪：
+      - `[plugins].enabled` 去掉 `pulsar/screenshot-overlay`（不存在的 id）和 `avivbintangaringga/nix-monitor`（D3）
+      - 加 `auto_update = "none"`
+      - 删 `[wallpaper.last]`、`[wallpaper.monitors.eDP-1]`，只留声明式的 `[wallpaper.default]`
+- [x] 补 v4 行为：`[accessibility] ui_scale=0.95`、`[shell] font_family`、`[weather]`、`[nightlight]`、
+      `[idle.behavior.*]`（300/600/900，fade 5s）、`[keybinds]`、
+      `[theme.templates]`（gtk3/gtk4/qt/kcolorscheme/kitty + pywalfox）
+- [x] `[plugin_settings."pulsar/screen-shot-and-record"]`：关通知，对齐 v4
+- [x] `noctalia config validate` → 0 error / 0 warning
+- [x] 落盘 `~/.config/noctalia/config.toml`，`settings.toml` → `settings.toml.bak`
+- [x] 校验：导出结果与新文件 TOML 语义等价；live `config validate` 通过
+- [x] 仓库副本：`home/Pulsar/assets/noctalia/config.toml`
+- [x] 清掉 `~/.config/noctalia/` 里 v4 GUI 残留（`colors.json`、`colorschemes/`、`plugins/`），
+      移入 `~/noctalia-v5-state-backup-2026-11-11/v4-config-leftovers/`；配置目录只剩 `config.toml`
 
-      [plugin_settings."thepunkoff/pomodoro"]
-      work-duration = 25
-      short-break-duration = 5
-      long-break-duration = 15
-      sessions-before-long-break = 4
-      auto-start-breaks = false
-      auto-start-work = false
-      ```
-- [ ] bar 补内置 `privacy` 组件（替代 v4 的 privacy-indicator），位置按 v4 的 left 段放
-- [ ] 校验：`noctalia config validate /tmp/noctalia-export.toml`（0 error，warning 逐条确认）
-- [ ] 落盘：`cp /tmp/noctalia-export.toml ~/nix/home/Pulsar/assets/noctalia/config.toml`
-- [ ] 清 state 覆盖层（导出里已包含锁屏/桌面组件布局）：
-      `mv ~/.local/state/noctalia/settings.toml ~/.local/state/noctalia/settings.toml.bak`
-- [ ] 重启 v5，确认配置只来自 `config.toml`
+与最初计划的差异
 
-**完成判据**：`settings.toml` 不存在时界面行为不变；`noctalia config export` 的输出与新 `config.toml` 基本一致。
+- **bar 一行没动**：v4 的 bar 样式不迁移（新 bar 是你重做的），`[bar.*]` 原样保留。
+- **privacy 组件**：按你的要求放到 `bar.default` 的 start 最左侧，配置随 `[widget.privacy]` 一起声明。
+- **ssr-dev 源暂时保留**：P5 之前删掉会让截图插件直接失效，绝对路径留到 P5 换成 `xdg.dataFile`。
+- **timer / pomodoro 没启用**：新 bar 里没有它们的组件，等要用时再开。
+- **desktop_widgets 没迁**：v4 的桌面时钟是坐标式的，建议 GUI 摆好后重新导出。
 
-**回滚**：把 `settings.toml.bak` 移回去，删掉仓库里的 `config.toml`。
+**完成判据**：`settings.toml` 不存在时行为不变 —— 已满足（待你目视确认 bar 正常）。
 
-### Phase 3 — niri 接线（1h）
+**回滚**：`mv ~/.local/state/noctalia/settings.toml.bak ~/.local/state/noctalia/settings.toml`，删 `~/.config/noctalia/config.toml`。
 
-文件：`~/.config/niri/config.kdl`（D7 未定前直接改；定了再搬进仓库）。
-排在配置之后：此时 `config.toml` 已落地，niri 直接指向 v5，不再有“两个 shell 抢 bar”的窗口。
+### Phase 3 — niri 接线（✅ 2026-11-11 执行）
 
-- [ ] `spawn-at-startup "noctalia-shell"` → `spawn-at-startup "noctalia"`
-- [ ] 启动锁屏的循环（约 :272）→ `spawn-sh-at-startup "timeout 10 bash -c 'while ! noctalia msg session lock; do sleep 0.1; done'"`（不想要就整行删）
-- [ ] 按表替换全部 `noctalia-shell ipc call`：
+文件：`~/.config/niri/config.kdl`（仍未进仓库，D7 待定）。备份：
+`~/niri-config-backup-2026-11-11-0858.kdl`。
 
-| 绑定 | 新命令 |
-|---|---|
-| launcher | `noctalia msg panel-toggle launcher` |
-| 锁屏 | `noctalia msg session lock` |
-| 锁屏+挂起 | `noctalia msg session lock; systemctl suspend` |
-| 音量 ± / 静音 / 麦克风 | `noctalia msg volume-up` / `volume-down` / `volume-mute` / `mic-mute` |
-| 亮度 ± | `noctalia msg brightness-up` / `brightness-down` |
-| 媒体 播放暂停/上一个/下一个/停止 | `noctalia msg media toggle` / `previous` / `next` / `stop` |
-| 控制中心 | `noctalia msg panel-toggle control-center` |
-| 电源菜单 | `noctalia msg panel-toggle session` |
-| 剪贴板 | `noctalia msg panel-toggle clipboard` |
-| emoji | `noctalia msg panel-toggle launcher "/emo"` |
-| `Mod+Slash`（cheatsheet） | **整条删除**（D1） |
+- [x] 33 处 `noctalia-shell ipc call ...` 全部换成 `noctalia msg ...`，`grep noctalia-shell` 归零
+- [x] 特殊项：`bar toggle` → `bar-toggle`、`settings toggle` → `settings-toggle`、
+      `plugin:screen-shot-and-record screenshot` → `screenshot-region`、
+      重启 shell → `config-reload`、emoji → `panel-toggle launcher /emo`
+- [x] 删除 `Mod+Slash`（keybind-cheatsheet，D1）
+- [x] `spawn-at-startup "noctalia-shell"` → `"noctalia"`；lid-close → `spawn "noctalia" "msg" "session" "lock"`
+- [x] 删掉 `NOCTALIA_PAM_SERVICE "noctalia-shell"`（v5 不读，锁屏走 `login` 栈）
+- [x] `niri validate -c ~/.config/niri/config.kdl` → valid；`noctalia msg config-reload` → ok
 
-- [ ] `niri validate -c ~/.config/niri/config.kdl`（或 `niri msg action do-screen-transition` 后热重载）
-- [ ] 逐个按键实按验证，重点：`XF86Audio*` 在锁屏下仍可用（`allow-when-locked=true` 保留）
+**回滚**：`cp ~/niri-config-backup-2026-11-11-0858.kdl ~/.config/niri/config.kdl`。
 
-**回滚**：`cp ~/niri-config-backup-*.kdl ~/.config/niri/config.kdl`，`niri msg action reload-config`。
+### Phase 4 — Nix 声明式接管（✅ 2026-11-11 执行）
 
-### Phase 4 — Nix 声明式接管（2h，需要 rebuild）
+- [x] `home/Pulsar/desktop/noctalia.nix` 换成 HM 内置 `programs.noctalia`（154 → 17 行）：
+      `settings = ../assets/noctalia/config.toml`、`checkConfig = true`
+- [x] 删掉 v4 残留：模块 import、quickshell 的 package override、`user-templates` + `templates` 目录、
+      `plugins` / `pluginSettings` 整段
+- [x] `system/hardware/default.nix`：删掉 `security.pam.services.noctalia-shell`
+- [x] `git add` 了 `config.toml`（flake 只看得见被 git 跟踪的文件，未跟踪会直接 eval 失败）
+- [x] `nh os build` 通过，构建期 `noctalia config validate` 通过
+- [x] 已 switch：`~/.config/noctalia/config.toml` 变成 store 软链，旧文件被 HM 备份为 `config.toml.bak`；
+      v4 的 `settings.json` / `plugins.json` / `user-templates.toml` / `templates/` 已清除
+- [x] profile 清理：`noctalia`、`niri-unstable` 移除（现在分别来自 HM 与系统，版本一致），
+      只留 `screenshot-overlay`（P5 之前插件还依赖它）
 
-文件：`home/Pulsar/desktop/noctalia.nix`、`flake.nix`、`system/hardware/default.nix`。
+**代价**：`config.toml` 是只读软链，改配置要改仓库再 rebuild；GUI 改动仍写 state 层。
 
-- [ ] `noctalia.nix` 整体替换为 HM 内置模块（HM `82ce401` 已自带 v5 模块，`pkgs.noctalia` 就是 5.4.1，**不需要额外 flake input**）：
-      ```nix
-      { ... }:
-      {
-        programs.noctalia = {
-          enable = true;
-          settings = ../assets/noctalia/config.toml;   # tomlFormat 接受 path
-          checkConfig = true;
-        };
-      }
-      ```
-- [ ] 删掉这些死代码：
-      - `imports = [ inputs.noctalia.homeModules.default ]`
-      - `package = ... override { quickshell = ... }`（19-25 行）
-      - `user-templates` + `xdg.configFile."noctalia/templates"`（11、29-40 行）
-      - `plugins` / `pluginSettings` 整段（42-149 行）
-      - `system/hardware/default.nix` 的 `pam.services.noctalia-shell`（49-61 行）
-- [ ] `flake.nix`：`noctalia` input 改名 `noctalia-v4`（D8），删未使用的 `quickshell` input
-- [ ] 保留 `pkgs/noctalia-qs/` 到 Phase 5 之后再删（回滚需要）
-- [ ] 构建验证：`nh home build`（不 switch），确认 `noctalia/config.toml` 生成且 `config validate` 通过
-- [ ] `sudo nh os switch` 前先 `nh os build`
-- [ ] 切换后确认：`~/.config/noctalia/` 下只剩 v5 的 `config.toml`（v4 的 `settings.json`/`plugins.json`/`user-templates.toml` 已被 HM 清理）
-
-**回滚**：`sudo nixos-rebuild switch --rollback`；工作区 `git checkout -- home/Pulsar/desktop/noctalia.nix system/hardware/default.nix flake.nix`。
+**回滚**：`sudo nixos-rebuild switch --rollback`（回 336，v4 的文件会被放回去）。
 
 ### Phase 5 — 插件与二进制打包（2-3h）
 
