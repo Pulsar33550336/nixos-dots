@@ -24,9 +24,7 @@
     hyprlock
     hypridle
     hyprpicker
+    mpvpaper
   ];
 
-  xresources.properties = {
-    "Xft.dpi" = 192;
-  };
 }

@@ -4,7 +4,8 @@
 {
   imports = [
     ./cursor.nix
-    ./hyprland.nix
+    # ./hyprland.nix
+    ./apps.nix
     ./noctalia.nix
   ];
 }
