@@ -3,6 +3,7 @@
 # （出于清晰意义，noto 字体的 overlay 不在这里）
 { ... }: {
   imports = [
+    ./benben-cursor.nix
     ./kdl-lsp.nix
     ./clash-verge.nix
     ./vhs.nix
