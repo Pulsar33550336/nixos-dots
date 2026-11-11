@@ -38,67 +38,48 @@
 
 ## 2. 阶段
 
-### Phase 0 — 存档（0.5h，无改动）
+### Phase 0 — 存档（✅ 2026-11-11 完成）
 
-- [ ] 记录现状：`nixos-rebuild list-generations | head`、`git -C ~/nix status --short`、`git -C ~/nix diff --stat`
-- [ ] 备份 v5 运行时配置：`cp ~/.local/state/noctalia/{settings.toml,state.toml} ~/noctalia-v5-state-backup-$(date +%F)/`
-- [ ] 备份 niri 配置：`cp ~/.config/niri/config.kdl ~/niri-config-backup-$(date +%F).kdl`
-- [ ] 确认 336 可回滚：`sudo nix-env --profile /nix/var/nix/profiles/system --list-generations | tail -3`
+- [x] 记录现状：system = 336（`26.11.20260919.20b1ddd`），337 是坏的 Qt 6.12 那一代。
+      `nix-env --list-generations` 需要 system.lock 权限，改用
+      `ls -l /nix/var/nix/profiles/system-*-link`
+- [x] 备份 v5 覆盖层与状态 → `~/noctalia-v5-state-backup-2026-11-11/`
+      （另含 `config-export-merged.toml`、`plugins-list.txt`、`README.txt` 元数据）
+- [x] 备份 niri → `~/niri-config-backup-2026-11-11.kdl`
+- [x] 确认 336 / 337 两个 generation link 都在，336 为当前
 
-**完成判据**：备份文件存在，336 仍是当前 generation。
+**完成判据**：备份文件存在，336 仍是当前 generation。（已满足）
 
-### Phase 1 — 临时试用 v5（0.5h，只动 profile）
+**Phase 0 顺带确认的事实**
+
+- profile 里的 v5 是 `noctalia 5.4.1`，正在运行，`noctalia msg` 可用。
+- `noctalia msg plugins list` 证实 `pulsar/screenshot-overlay` 不存在于任何来源，
+  只有 `pulsar/screen-shot-and-record [ssr-dev]`。
+- `noctalia config export` 会把 v4 遗留的 `~/.config/noctalia/user-templates.toml`
+  一起合并进来（`[templates.hyprland]` / `[templates.hyprlock]`），Phase 2 要先挪走它。
+
+### Phase 1 — 临时试用 v5（✅ 已完成）
+
+v5 已装进 profile 并在跑，版本与目标一致：
 
 ```bash
-# 停 v4（niri 的 spawn 会在下次登录时再拉起，试跑完再说）
-pkill -f noctalia-shell
-
-# 装 v5：官方 flake + 二进制缓存；dry-run 已确认只拉 2 个 path、不编译
+# 已执行（记录用）
 nix profile install \
   --option extra-substituters https://noctalia.cachix.org \
   --option extra-trusted-public-keys 'noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=' \
   'github:noctalia-dev/noctalia/cachix'
 ```
 
-- [ ] 首次试跑用隔离目录，不碰现有 state：
-      `NOCTALIA_CONFIG_HOME=/tmp/n5cfg NOCTALIA_STATE_HOME=/tmp/n5 noctalia 2>&1 | tee /tmp/noctalia.log`
-- [ ] 第二次用现有 state 试跑（确认 5.4.1 的 `config_version = 19` 能直接读）：
-      `mv ~/.config/noctalia/user-templates.toml ~/.config/noctalia/user-templates.toml.v4bak && noctalia 2>&1 | tee /tmp/noctalia.log`
-- [ ] 检查日志：不应出现 `QQuickColor` / `smartAlpha`；应出现配置来源路径
-- [ ] 手工验证：bar 有主题色、`noctalia msg panel-toggle launcher` 能开、
-      `noctalia msg session lock` 能锁、锁屏能密码解锁、指纹仍可用
+- [x] `~/.nix-profile/bin/noctalia` → `/nix/store/cmlsxk9…-noctalia-5.4.1/bin/noctalia`
+- [x] 在 niri 会话下可用（bar、面板、IPC 均可用）
+- [x] `noctalia msg plugins list` 能列出 official / community / ssr-dev 三个来源
 
-**回滚**：`nix profile remove noctalia`，`pkill noctalia`，恢复 `user-templates.toml`，重新 `noctalia-shell`。
+**回滚**：`nix profile remove noctalia`，`pkill noctalia`，重新 `noctalia-shell`。
 
-### Phase 2 — niri 接线（1h）
+### Phase 2 — 把 v5 配置从 state 迁到仓库（2-3h）
 
-文件：`~/.config/niri/config.kdl`（D7 未定前直接改；定了再搬进仓库）。
-
-- [ ] `spawn-at-startup "noctalia-shell"` → `spawn-at-startup "noctalia"`
-- [ ] 启动锁屏的循环（约 :272）→ `spawn-sh-at-startup "timeout 10 bash -c 'while ! noctalia msg session lock; do sleep 0.1; done'"`（不想要就整行删）
-- [ ] 按表替换全部 `noctalia-shell ipc call`：
-
-| 绑定 | 新命令 |
-|---|---|
-| launcher | `noctalia msg panel-toggle launcher` |
-| 锁屏 | `noctalia msg session lock` |
-| 锁屏+挂起 | `noctalia msg session lock; systemctl suspend` |
-| 音量 ± / 静音 / 麦克风 | `noctalia msg volume-up` / `volume-down` / `volume-mute` / `mic-mute` |
-| 亮度 ± | `noctalia msg brightness-up` / `brightness-down` |
-| 媒体 播放暂停/上一个/下一个/停止 | `noctalia msg media toggle` / `previous` / `next` / `stop` |
-| 控制中心 | `noctalia msg panel-toggle control-center` |
-| 电源菜单 | `noctalia msg panel-toggle session` |
-| 剪贴板 | `noctalia msg panel-toggle clipboard` |
-| emoji | `noctalia msg panel-toggle launcher "/emo"` |
-| `Mod+Slash`（cheatsheet） | **整条删除**（D1） |
-
-- [ ] `niri validate -c ~/.config/niri/config.kdl`（或 `niri msg action do-screen-transition` 后热重载）
-- [ ] 逐个按键实按验证，重点：`XF86Audio*` 在锁屏下仍可用（`allow-when-locked=true` 保留）
-
-**回滚**：`cp ~/niri-config-backup-*.kdl ~/.config/niri/config.kdl`，`niri msg action reload-config`。
-
-### Phase 3 — 把 v5 配置从 state 迁到仓库（2-3h）
-
+- [ ] 先挪走 v4 的 `user-templates.toml`（HM 软链，v5 会把它当配置读，导出里会混进 `[templates.hyprland]` / `[templates.hyprlock]`）：
+      `mv ~/.config/noctalia/user-templates.toml ~/.config/noctalia/user-templates.toml.v4bak`
 - [ ] 导出合并配置：`noctalia config export > /tmp/noctalia-export.toml`
 - [ ] 人工修剪（对照 §3 清单）：
       - 删 `[plugins].enabled` 里 `pulsar/screenshot-overlay`（不存在的 id）、`avivbintangaringga/nix-monitor`（D3）、`kenn/keybind-cheatsheet`（D1）
@@ -140,6 +121,34 @@ nix profile install \
 **完成判据**：`settings.toml` 不存在时界面行为不变；`noctalia config export` 的输出与新 `config.toml` 基本一致。
 
 **回滚**：把 `settings.toml.bak` 移回去，删掉仓库里的 `config.toml`。
+
+### Phase 3 — niri 接线（1h）
+
+文件：`~/.config/niri/config.kdl`（D7 未定前直接改；定了再搬进仓库）。
+排在配置之后：此时 `config.toml` 已落地，niri 直接指向 v5，不再有“两个 shell 抢 bar”的窗口。
+
+- [ ] `spawn-at-startup "noctalia-shell"` → `spawn-at-startup "noctalia"`
+- [ ] 启动锁屏的循环（约 :272）→ `spawn-sh-at-startup "timeout 10 bash -c 'while ! noctalia msg session lock; do sleep 0.1; done'"`（不想要就整行删）
+- [ ] 按表替换全部 `noctalia-shell ipc call`：
+
+| 绑定 | 新命令 |
+|---|---|
+| launcher | `noctalia msg panel-toggle launcher` |
+| 锁屏 | `noctalia msg session lock` |
+| 锁屏+挂起 | `noctalia msg session lock; systemctl suspend` |
+| 音量 ± / 静音 / 麦克风 | `noctalia msg volume-up` / `volume-down` / `volume-mute` / `mic-mute` |
+| 亮度 ± | `noctalia msg brightness-up` / `brightness-down` |
+| 媒体 播放暂停/上一个/下一个/停止 | `noctalia msg media toggle` / `previous` / `next` / `stop` |
+| 控制中心 | `noctalia msg panel-toggle control-center` |
+| 电源菜单 | `noctalia msg panel-toggle session` |
+| 剪贴板 | `noctalia msg panel-toggle clipboard` |
+| emoji | `noctalia msg panel-toggle launcher "/emo"` |
+| `Mod+Slash`（cheatsheet） | **整条删除**（D1） |
+
+- [ ] `niri validate -c ~/.config/niri/config.kdl`（或 `niri msg action do-screen-transition` 后热重载）
+- [ ] 逐个按键实按验证，重点：`XF86Audio*` 在锁屏下仍可用（`allow-when-locked=true` 保留）
+
+**回滚**：`cp ~/niri-config-backup-*.kdl ~/.config/niri/config.kdl`，`niri msg action reload-config`。
 
 ### Phase 4 — Nix 声明式接管（2h，需要 rebuild）
 
@@ -202,7 +211,7 @@ nix profile install \
 - [ ] 归档 `~/Projects/noctalia-qs`、`~/Projects/pulsar-ns-plugins`（v4 分支打 tag）
 - [ ] 更新或替换 `docs/v5-migration.md`，把本计划的结论并进去
 
-## 3. v4 → v5 配置补全清单（Phase 3 用）
+## 3. v4 → v5 配置补全清单（Phase 2 用）
 
 | v4 项 | v4 值 | v5 写法 |
 |---|---|---|
@@ -232,8 +241,8 @@ nix profile install \
 | 阶段 | 回滚动作 | 代价 |
 |---|---|---|
 | 1 | `nix profile remove noctalia` + 重启 v4 | 分钟级 |
-| 2 | 恢复 `config.kdl` 备份 + reload | 分钟级 |
-| 3 | 恢复 `settings.toml.bak`，删 `config.toml` | 分钟级 |
+| 2 | 恢复 `settings.toml.bak`，删 `config.toml` | 分钟级 |
+| 3 | 恢复 `config.kdl` 备份 + reload | 分钟级 |
 | 4 | `nixos-rebuild switch --rollback` + `git checkout` | 一次 rebuild |
 | 5 | 删新 `pkgs/` 目录，source 改回路径 | 分钟级 |
 | 6 | 不可回滚（此时已稳定一周） | — |
