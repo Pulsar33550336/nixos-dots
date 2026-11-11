@@ -6,9 +6,13 @@
       url = "github:outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    pulsar-plugins = {
+      url = "github:Pulsar33550336/pulsar-ns-plugins";
+      flake = false;
+    };
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell/legacy-v4";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:noctalia-dev/noctalia/cachix";
+      # 故意不 follows nixpkgs：一旦跟随，derivation 哈希就变了，官方缓存全部 miss。
     };
     home-manager = {
       url = "github:nix-community/home-manager";

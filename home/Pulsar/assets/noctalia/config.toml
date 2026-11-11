@@ -1,199 +1,29 @@
-[backdrop]
-enabled = true
+# Noctalia v5 配置。
+#
+# v5 会按文件名顺序合并 ~/.config/noctalia/*.toml，所以这份也可以拆开；拆过一轮
+# 又合回来了——单文件改起来更快，章节之间用空行分开。
+#
+# 分层：这里（~/.config）是声明式基础层，GUI 改动写 ~/.local/state/noctalia/settings.toml，
+# 后者优先。GUI 改了却没生效时，先看那个文件。
 
-[bar]
-order = [ "default", "bar" ]
+[theme]
+builtin = "Noctalia"
+mode = "dark"
+source = "wallpaper"
+wallpaper_scheme = "m3-tonal-spot"
 
-    [bar.bar]
-    background_opacity = 0.69999998435378075
-    capsule_radius = 8
-    center = [ "taskbar" ]
-    concave_edge_corners = false
-    enabled = true
-    end = [ "widget_2", "session" ]
-    margin_ends = 0
-    position = "left"
-    radius = 0
-    radius_bottom_left = 0
-    radius_top_left = 0
-    start = [ "battery", "group:g1" ]
-    thickness = 38
+[accessibility]
+ui_scale = 0.95
 
-        [[bar.bar.capsule_group]]
-        accordion = false
-        accordion_direction = "end"
-        border_width = 1.0
-        enabled = true
-        fill = "surface_container"
-        id = "g1"
-        members = [ "cpu", "temp", "ram", "Swap" ]
-        opacity = 1.0
-        padding = 6.0
-        radius = 8.0
-
-    [bar.default]
-    background_opacity = 0.69999999999999996
-    capsule = true
-    capsule_opacity = 0.97999997809529305
-    capsule_radius = 8
-    center = []
-    end = [ "tray", "volume", "brightness", "clock", "notifications", "control-center", "widget" ]
-    font_scale = 0.9499999862164259
-    margin_edge = 0
-    margin_ends = 0
-    padding = 6
-    radius_bottom_left = 0
-    radius_bottom_right = 0
-    radius_top_left = 0
-    radius_top_right = 0
-    scale = 0.95000000670552254
-    shadow = false
-    start = [ "launcher", "media", "active_window", "privacy" ]
-    thickness = 38
-
-        [bar.default.dead_zone.actions]
-        scroll_down = "workspace-switch next"
-        scroll_up = "workspace-switch prev"
-
-[desktop_widgets]
-schema_version = 2
-widget_order = []
-
-    [desktop_widgets.grid]
-    cell_size = 16
-    major_interval = 4
-    visible = true
-
-    [desktop_widgets.widget]
+[theme.templates]
+enable_builtin_templates = true
+builtin_ids = ["gtk3", "gtk4", "qt", "kcolorscheme", "kitty"]
+enable_community_templates = true
+community_ids = ["pywalfox"]
 
 [location]
 auto_locate = false
 address = "Xi'an"
-[lockscreen]
-transition = [ "honeycomb" ]
-transition_duration = 800
-
-[lockscreen_widgets]
-enabled = true
-schema_version = 2
-widget_order = [
-    "lockscreen-login-box@eDP-1",
-    "lockscreen-widget-0000000000000001",
-    "lockscreen-widget-0000000000000002",
-    "lockscreen-widget-0000000000000003",
-    "lockscreen-widget-0000000000000004",
-    "lockscreen-widget-0000000000000005"
-]
-
-    [lockscreen_widgets.grid]
-    cell_size = 8
-    major_interval = 4
-    visible = true
-
-    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
-    box_height = 196.0
-    box_width = 810.0
-    cx = 768.0
-    cy = 834.0
-    output = "eDP-1"
-    placement_height = 960.0
-    placement_width = 1536.0
-    rotation = 0.0
-    type = "login_box"
-
-        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
-        background_color = "surface_container"
-        background_opacity = 0.88
-        background_radius = 12.0
-        center_password_text = true
-        input_opacity = 1.0
-        input_radius = 6.0
-        layout = "regular"
-        show_caps_lock = true
-        show_keyboard_layout = true
-        show_login_button = true
-        show_media = true
-        show_session_buttons = true
-        show_unlock_hint = true
-        show_weather = true
-
-    [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
-    box_height = 96.0
-    box_width = 160.0
-    cx = 816.0
-    cy = 248.0
-    output = "eDP-1"
-    placement_height = 960.0
-    placement_width = 1536.0
-    rotation = 0.0
-    type = "clock"
-
-        [lockscreen_widgets.widget.lockscreen-widget-0000000000000001.settings]
-        background = true
-        background_color = "surface"
-        background_opacity = 0.80000000000000004
-        background_padding = 10
-        background_radius = 12
-        center_text = true
-        circle = true
-        clock_style = "digital"
-        color = "on_surface"
-        font_family = ""
-        format = "{:%H:%M}"
-        shadow = true
-        timezone = ""
-
-    [lockscreen_widgets.widget.lockscreen-widget-0000000000000002]
-    box_height = 120.0
-    box_width = 256.0
-    cx = 496.0
-    cy = 616.0
-    output = "eDP-1"
-    placement_height = 960.0
-    placement_width = 1536.0
-    rotation = 0.0
-    type = "weather"
-
-    [lockscreen_widgets.widget.lockscreen-widget-0000000000000003]
-    box_height = 96.0
-    box_width = 96.0
-    cx = 688.0
-    cy = 248.0
-    output = "eDP-1"
-    placement_height = 960.0
-    placement_width = 1536.0
-    rotation = 0.0
-    type = "clock"
-
-        [lockscreen_widgets.widget.lockscreen-widget-0000000000000003.settings]
-        clock_style = "analog"
-
-    [lockscreen_widgets.widget.lockscreen-widget-0000000000000004]
-    box_height = 120.0
-    box_width = 264.0
-    cx = 764.0
-    cy = 616.0
-    output = "eDP-1"
-    placement_height = 960.0
-    placement_width = 1536.0
-    rotation = 0.0
-    type = "media_player"
-
-    [lockscreen_widgets.widget.lockscreen-widget-0000000000000005]
-    box_height = 120.0
-    box_width = 264.0
-    cx = 1036.0
-    cy = 616.0
-    output = "eDP-1"
-    placement_height = 960.0
-    placement_width = 1536.0
-    rotation = 0.0
-    type = "audio_visualizer"
-
-        [lockscreen_widgets.widget.lockscreen-widget-0000000000000005.settings]
-        bands = 32
-        show_when_idle = true
-
 [notification]
 layer = "overlay"
 background_opacity = 1.0
@@ -203,22 +33,6 @@ keep_dismissed_in_history = true
 keyboard_layout = false
 media = false
 
-[plugins]
-auto_update = "none"
-enabled = [
-    "noctalia/screen_recorder",
-    "pulsar/screen-shot-and-record"
-]
-
-    [[plugins.source]]
-    kind = "git"
-    location = "https://github.com/noctalia-dev/official-plugins"
-    name = "official"
-
-    [[plugins.source]]
-    kind = "git"
-    location = "https://github.com/noctalia-dev/community-plugins"
-    name = "community"
 [shell]
 font_family = "Noto Sans CJK SC Medium"
 corner_radius_scale = 1.2500000186264515
@@ -231,24 +45,24 @@ settings_expand_all_groups = true
 settings_window_translucent = true
 telemetry_enabled = false
 
-    [shell.animation]
-    speed = 0.90000001341104507
+[shell.animation]
+speed = 0.90000001341104507
 
-    [shell.panel]
-    control_center_placement = "floating"
-    floating_layer = "top"
-    open_near_click_control_center = true
-    open_near_click_launcher = true
-    open_near_click_session = true
-    session_placement = "floating"
-    transparency_mode = "glass"
+[shell.panel]
+control_center_placement = "floating"
+floating_layer = "top"
+open_near_click_control_center = true
+open_near_click_launcher = true
+open_near_click_session = true
+session_placement = "floating"
+transparency_mode = "glass"
 
-    [shell.screen_corners]
-    enabled = true
-    size = 24
+[shell.screen_corners]
+enabled = true
+size = 24
 
-    [shell.session]
-    grid = true
+[shell.session]
+grid = true
 
 [system.monitor]
 cpu_temp_activity_threshold = 75
@@ -256,112 +70,6 @@ cpu_temp_critical_threshold = 90
 gpu_poll_seconds = 6
 swap_pct_activity_threshold = 80
 swap_pct_critical_threshold = 90
-
-[theme]
-builtin = "Noctalia"
-mode = "dark"
-source = "wallpaper"
-wallpaper_scheme = "m3-tonal-spot"
-
-[wallpaper]
-directory = "/home/Pulsar/Pictures"
-
-    [wallpaper.default]
-    path = "/home/Pulsar/Pictures/CS_ChapLoop04_Act0180_out_first.png"
-
-[widget.Swap]
-interactive = false
-label_show_units = false
-show_value = false
-stat = "swap_pct"
-type = "sysmon"
-
-[widget.active_window]
-icon_size = 18
-max_length = 205
-min_length = 0
-title_scroll = "on_hover"
-
-[widget.brightness]
-show_label = false
-
-    [widget.brightness.actions]
-    scroll_down = "brightness-down 2"
-    scroll_up = "brightness-up 2"
-
-[widget.clock]
-format = "{:%H:%M / %-m 月 %d 日 周%a}"
-tooltip_format = "{:%H:%M 周%a - %Y 年 %-m 月 %d 日}"
-
-[widget.cpu]
-interactive = false
-label_show_units = false
-show_value = false
-
-[widget.media]
-hide_when_no_media = true
-max_length = 185
-show_progress = true
-title_scroll = "on_hover"
-
-    [widget.media.actions]
-    middle = "media toggle"
-    right = "media next"
-    scroll_down = "none"
-    scroll_up = "none"
-
-[widget.network]
-show_label = false
-
-[widget.ram]
-interactive = false
-show_value = false
-
-[widget.recorder]
-type = "noctalia/screen_recorder:recorder"
-
-[widget.sysmon]
-show_value = false
-stat = "swap_pct"
-
-[widget.taskbar]
-anchor = true
-capsule_opacity = 0.0
-group_by_workspace = true
-workspace_label_placement = "inside"
-
-[widget.temp]
-font_scale = 0.90000000000000013
-interactive = false
-visualization = "none"
-
-[widget.tray]
-anchor = true
-detached_panel = true
-drawer = true
-drawer_columns = 4
-drawer_item_size = 20.0
-pinned = [ "Fcitx" ]
-
-[widget.volume]
-show_label = false
-
-    [widget.volume.actions]
-    scroll_down = "volume-down 2"
-    scroll_up = "volume-up 2"
-
-[widget.widget]
-type = "pulsar/screen-shot-and-record:widget"
-
-[widget.widget_2]
-type = "pulsar/screen-shot-and-record:widget"
-
-[widget.workspaces]
-anchor = true
-style = "focus_hint"
-
-[accessibility]
-ui_scale = 0.95
 
 [weather]
 enabled = true
@@ -401,12 +109,329 @@ up = ["up"]
 down = ["down"]
 delete = ["del"]
 
-[theme.templates]
-enable_builtin_templates = true
-builtin_ids = ["gtk3", "gtk4", "qt", "kcolorscheme", "kitty"]
-enable_community_templates = true
-community_ids = ["pywalfox"]
+[bar]
+order = ["default", "bar"]
 
+[bar.bar]
+background_opacity = 0.69999998435378075
+capsule_radius = 8
+center = ["taskbar"]
+concave_edge_corners = false
+enabled = true
+end = ["widget_2", "session"]
+margin_ends = 0
+position = "left"
+radius = 0
+radius_bottom_left = 0
+radius_top_left = 0
+start = ["battery", "group:g1"]
+thickness = 38
+
+[[bar.bar.capsule_group]]
+accordion = false
+accordion_direction = "end"
+border_width = 1.0
+enabled = true
+fill = "surface_container"
+id = "g1"
+members = ["cpu", "temp", "ram", "Swap"]
+opacity = 1.0
+padding = 6.0
+radius = 8.0
+
+[bar.default]
+background_opacity = 0.69999999999999996
+capsule = true
+capsule_opacity = 0.97999997809529305
+capsule_radius = 8
+center = []
+end = [
+    "tray",
+    "volume",
+    "brightness",
+    "clock",
+    "notifications",
+    "control-center",
+    "widget",
+]
+font_scale = 0.9499999862164259
+margin_edge = 0
+margin_ends = 0
+padding = 6
+radius_bottom_left = 0
+radius_bottom_right = 0
+radius_top_left = 0
+radius_top_right = 0
+scale = 0.95000000670552254
+shadow = false
+start = ["launcher", "media", "active_window", "privacy"]
+thickness = 38
+
+[bar.default.dead_zone.actions]
+scroll_down = "workspace-switch next"
+scroll_up = "workspace-switch prev"
+
+[widget.Swap]
+interactive = false
+label_show_units = false
+show_value = false
+stat = "swap_pct"
+type = "sysmon"
+
+[widget.active_window]
+icon_size = 18
+max_length = 205
+min_length = 0
+title_scroll = "on_hover"
+
+[widget.brightness]
+show_label = false
+
+[widget.brightness.actions]
+scroll_down = "brightness-down 2"
+scroll_up = "brightness-up 2"
+
+[widget.clock]
+format = "{:%H:%M / %-m 月 %d 日 周%a}"
+tooltip_format = "{:%H:%M 周%a - %Y 年 %-m 月 %d 日}"
+
+[widget.cpu]
+interactive = false
+label_show_units = false
+show_value = false
+
+[widget.media]
+hide_when_no_media = true
+max_length = 185
+show_progress = true
+title_scroll = "on_hover"
+
+[widget.media.actions]
+middle = "media toggle"
+right = "media next"
+scroll_down = "none"
+scroll_up = "none"
+
+[widget.network]
+show_label = false
+
+[widget.ram]
+interactive = false
+show_value = false
+
+[widget.recorder]
+type = "noctalia/screen_recorder:recorder"
+
+[widget.sysmon]
+show_value = false
+stat = "swap_pct"
+
+[widget.taskbar]
+anchor = true
+capsule_opacity = 0.0
+group_by_workspace = true
+workspace_label_placement = "inside"
+
+[widget.temp]
+font_scale = 0.90000000000000013
+interactive = false
+visualization = "none"
+
+[widget.tray]
+anchor = true
+detached_panel = true
+drawer = true
+drawer_columns = 4
+drawer_item_size = 20.0
+pinned = ["Fcitx"]
+
+[widget.volume]
+show_label = false
+
+[widget.volume.actions]
+scroll_down = "volume-down 2"
+scroll_up = "volume-up 2"
+
+[widget.widget]
+type = "pulsar/screen-shot-and-record:widget"
+
+[widget.widget_2]
+type = "pulsar/screen-shot-and-record:widget"
+
+[widget.workspaces]
+anchor = true
+style = "focus_hint"
+
+[widget.privacy]
+active_color = "primary"
+hide_inactive = true
+icon_spacing = 2
+inactive_color = "outline_variant"
+
+[backdrop]
+enabled = true
+
+[desktop_widgets]
+schema_version = 2
+widget_order = []
+
+[desktop_widgets.grid]
+cell_size = 16
+major_interval = 4
+visible = true
+
+[desktop_widgets.widget]
+
+[lockscreen]
+transition = ["honeycomb"]
+transition_duration = 800
+
+[lockscreen_widgets]
+enabled = true
+schema_version = 2
+widget_order = [
+    "lockscreen-login-box@eDP-1",
+    "lockscreen-widget-0000000000000001",
+    "lockscreen-widget-0000000000000002",
+    "lockscreen-widget-0000000000000003",
+    "lockscreen-widget-0000000000000004",
+    "lockscreen-widget-0000000000000005",
+]
+
+[lockscreen_widgets.grid]
+cell_size = 8
+major_interval = 4
+visible = true
+
+[lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+box_height = 196.0
+box_width = 810.0
+cx = 768.0
+cy = 834.0
+output = "eDP-1"
+placement_height = 960.0
+placement_width = 1536.0
+rotation = 0.0
+type = "login_box"
+
+[lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+background_color = "surface_container"
+background_opacity = 0.88
+background_radius = 12.0
+center_password_text = true
+input_opacity = 1.0
+input_radius = 6.0
+layout = "regular"
+show_caps_lock = true
+show_keyboard_layout = true
+show_login_button = true
+show_media = true
+show_session_buttons = true
+show_unlock_hint = true
+show_weather = true
+
+[lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
+box_height = 96.0
+box_width = 160.0
+cx = 816.0
+cy = 248.0
+output = "eDP-1"
+placement_height = 960.0
+placement_width = 1536.0
+rotation = 0.0
+type = "clock"
+
+[lockscreen_widgets.widget.lockscreen-widget-0000000000000001.settings]
+background = true
+background_color = "surface"
+background_opacity = 0.80000000000000004
+background_padding = 10
+background_radius = 12
+center_text = true
+circle = true
+clock_style = "digital"
+color = "on_surface"
+font_family = ""
+format = "{:%H:%M}"
+shadow = true
+timezone = ""
+
+[lockscreen_widgets.widget.lockscreen-widget-0000000000000002]
+box_height = 120.0
+box_width = 256.0
+cx = 496.0
+cy = 616.0
+output = "eDP-1"
+placement_height = 960.0
+placement_width = 1536.0
+rotation = 0.0
+type = "weather"
+
+[lockscreen_widgets.widget.lockscreen-widget-0000000000000003]
+box_height = 96.0
+box_width = 96.0
+cx = 688.0
+cy = 248.0
+output = "eDP-1"
+placement_height = 960.0
+placement_width = 1536.0
+rotation = 0.0
+type = "clock"
+
+[lockscreen_widgets.widget.lockscreen-widget-0000000000000003.settings]
+clock_style = "analog"
+
+[lockscreen_widgets.widget.lockscreen-widget-0000000000000004]
+box_height = 120.0
+box_width = 264.0
+cx = 764.0
+cy = 616.0
+output = "eDP-1"
+placement_height = 960.0
+placement_width = 1536.0
+rotation = 0.0
+type = "media_player"
+
+[lockscreen_widgets.widget.lockscreen-widget-0000000000000005]
+box_height = 120.0
+box_width = 264.0
+cx = 1036.0
+cy = 616.0
+output = "eDP-1"
+placement_height = 960.0
+placement_width = 1536.0
+rotation = 0.0
+type = "audio_visualizer"
+
+[lockscreen_widgets.widget.lockscreen-widget-0000000000000005.settings]
+bands = 32
+show_when_idle = true
+
+[wallpaper]
+directory = "/home/Pulsar/Pictures"
+
+[wallpaper.default]
+path = "/home/Pulsar/Pictures/CS_ChapLoop04_Act0180_out_first.png"
+
+[plugins]
+# 插件由 Noctalia 自己从源里拉取/更新；"none" 就只在你 `plugins update` 时动。
+auto_update = "all"
+enabled = ["noctalia/screen_recorder", "pulsar/screen-shot-and-record"]
+
+[[plugins.source]]
+kind = "git"
+location = "https://github.com/noctalia-dev/official-plugins"
+name = "official"
+
+[[plugins.source]]
+kind = "git"
+location = "https://github.com/noctalia-dev/community-plugins"
+name = "community"
+
+[[plugins.source]]
+kind = "git"
+location = "https://github.com/Pulsar33550336/pulsar-ns-plugins"
+name = "pulsar"
 [plugin_settings."pulsar/screen-shot-and-record"]
 enable_cross = true
 enable_windows_selection = true
@@ -417,9 +442,3 @@ save_path = "~/Pictures/Screenshots"
 recording_save_path = "~/Videos"
 notifications_enabled = false
 recording_notifications = false
-
-[widget.privacy]
-active_color = "primary"
-hide_inactive = true
-icon_spacing = 2
-inactive_color = "outline_variant"
