@@ -1,7 +1,0 @@
-{
-    "workspace": {
-        "library": [
-            "~/.local/share/hyprland-stubs"
-        ]
-    }
-}
