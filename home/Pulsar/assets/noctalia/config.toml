@@ -219,12 +219,6 @@ enabled = [
     kind = "git"
     location = "https://github.com/noctalia-dev/community-plugins"
     name = "community"
-
-    # TODO(P5): 换成 HM xdg.dataFile 投放的 local 源，去掉这个绝对路径
-    [[plugins.source]]
-    kind = "path"
-    location = "/home/Pulsar/Projects/pulsar-ns-plugins/ssr-overlay-demo"
-    name = "ssr-dev"
 [shell]
 font_family = "Noto Sans CJK SC Medium"
 corner_radius_scale = 1.2500000186264515
