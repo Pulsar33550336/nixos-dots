@@ -19,11 +19,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     niri-flake = {
-      url = "github:sodiboo/niri-flake";
+      url = "github:epireyn/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.niri-unstable.url = "github:Pulsar33550336/niri";
     };
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+    pinentry-kwallet = {
+      url = "github:Pulsar33550336/pinentry-kwallet";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dsh = {
+      url = "github:moraxyc/deepseek-harness.nix";
+    };
   };
 
   outputs =
