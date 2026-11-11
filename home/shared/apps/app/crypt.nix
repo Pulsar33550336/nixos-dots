@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   programs.gpg = {
@@ -7,6 +7,6 @@
 
   services.gpg-agent = {
     enable = true;
-    pinentry.package = pkgs.pinentry-gtk2;
+    pinentry.package = inputs.pinentry-kwallet.packages."${pkgs.stdenv.hostPlatform.system}".default;
   };
 }
