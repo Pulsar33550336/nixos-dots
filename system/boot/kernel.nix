@@ -10,9 +10,11 @@
   ];
 
   nix.settings = {
-    substituters = lib.mkBefore [ "https://attic.xuyh0120.win/lantian" ];
+    # 2026-10-24 缓存被入侵后重建，换了新地址和新签名公钥
+    # https://github.com/xddxdd/nix-cachyos-kernel/issues/110
+    substituters = lib.mkBefore [ "https://cache.lantian.pub/lantian" ];
     trusted-public-keys = lib.mkBefore [
-      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
+      "lantian:WVGO7vsRMSEN+h7Lp7kv6SAmrkEXgUGbbXm7jMDjBuQ="
     ];
   };
 
