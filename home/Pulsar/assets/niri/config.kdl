@@ -299,8 +299,7 @@ debug {
   honor-xdg-activation-with-invalid-serial
 }
 
-// Noctalia's blurred backdrop layer inside the niri overview
-// (requires [backdrop] enabled = true in the Noctalia config).
+// Noctalia's backdrop layer inside the niri overview
 layer-rule {
   match namespace="^noctalia-backdrop"
   place-within-backdrop true
@@ -368,20 +367,6 @@ window-rule {
     default-window-height { proportion 0.65; }
 }
 
-// blueberry.py
-window-rule {
-    match app-id=r#"^(blueberry\.py)$"#
-
-    open-floating true
-}
-
-// guifetch
-window-rule {
-    match app-id="^(guifetch)$"
-
-    open-floating true
-}
-
 // pavucontrol（含两种变体）以及 pavucontrol-qt
 window-rule {
     match app-id="^(pavucontrol)$"
@@ -416,27 +401,6 @@ window-rule {
     open-floating true
 }
 
-// bluedevilwizard
-window-rule {
-    match app-id=".*bluedevilwizard"
-
-    open-floating true
-}
-
-// Welcome 窗口
-window-rule {
-    match title=".*Welcome"
-
-    open-floating true
-}
-
-// Shell conflicts
-window-rule {
-    match title=".*Shell conflicts.*"
-
-    open-floating true
-}
-
 // KDE portal
 window-rule {
     match app-id="org.freedesktop.impl.portal.desktop.kde"
@@ -446,28 +410,12 @@ window-rule {
     default-window-height { proportion 0.65; }
 }
 
-// Zotero
-window-rule {
-    match app-id="^(Zotero)$"
-
-    open-floating true
-    default-column-width { proportion 0.45; }
-    default-window-height { proportion 0.45; }
-}
-
 // plasma-changeicons
 window-rule {
     match app-id="^(plasma-changeicons)$"
 
     open-floating true
     open-focused false
-}
-
-// Warp 终端：强制平铺，覆盖任何自动浮动逻辑
-window-rule {
-    match app-id="^dev\\.warp\\.Warp$"
-
-    open-floating false
 }
 
 window-rule {
@@ -509,24 +457,10 @@ window-rule {
     }
 }
 
-// JetBrains IDE 焦点/重绘问题
-window-rule {
-    match app-id=r#"^jetbrains-.*$"# title=r#"^$|^\s$|^win\d+$"#
-
-    open-floating true
-    open-focused false
-}
-
 cursor {
     xcursor-theme "BenBen"
     xcursor-size 32
 }
-
-// cursor {
-//     xcursor-theme "macOS"
-//     xcursor-size 24
-// }
-
 
 environment {
     ELECTRON_OZONE_PLATFORM_HINT "1"
@@ -551,11 +485,6 @@ environment {
     GLFW_IM_MODULE "ibus"
 }
 
-/*
-  Noctalia
-  Disable xray on all our surfaces so it looks more realistic.
-  Noctalia publishes blur regions automatically when ext-background-effects is available.
-*/
 layer-rule {
   match namespace="^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd)$"
   background-effect {
@@ -564,7 +493,6 @@ layer-rule {
   }
 }
 
-/* Enable blur on noctalia's window switcher and disable xray. */
 layer-rule {
     match namespace="noctalia-window-switcher"
     background-effect {
