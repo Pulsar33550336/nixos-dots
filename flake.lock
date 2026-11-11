@@ -408,11 +408,11 @@
     "pulsar-plugins": {
       "flake": false,
       "locked": {
-        "lastModified": 1794363704,
-        "narHash": "sha256-+9TnrEOx2iEUismxQk3qirZ85Swvr2uTN0WZB4Peuww=",
+        "lastModified": 1794365217,
+        "narHash": "sha256-CcgFm70q4/hpCdKpU4jf3TXuCf8jb4Ql4YqAaVLYftI=",
         "owner": "Pulsar33550336",
         "repo": "pulsar-ns-plugins",
-        "rev": "1bb3d6f4c4ec7d0c68d70305f8ce08f2c7cdaffe",
+        "rev": "1a6df0cd79cfda0d090f9c3618d203032ebfee2a",
         "type": "github"
       },
       "original": {
