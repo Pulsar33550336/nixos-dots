@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  environment.systemPackages = with pkgs; [
-    libreoffice-qt-still
-  ];
+  # environment.systemPackages = with pkgs; [
+  #   libreoffice-qt-still
+  # ];
 }
