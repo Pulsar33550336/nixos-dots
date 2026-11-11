@@ -18,6 +18,9 @@ in
     checkConfig = true;
   };
 
+  # v5 的用户模板输入文件（[theme.templates.user.*] 里的 input_path）。
+  xdg.configFile."noctalia/templates".source = ../assets/noctalia/templates;
+
   # screen-shot-and-record 插件调用的外部工具。
   home.packages = with pkgs; [
     screenshotOverlay

@@ -21,6 +21,10 @@ builtin_ids = ["gtk3", "gtk4", "qt", "kcolorscheme", "kitty"]
 enable_community_templates = true
 community_ids = ["pywalfox"]
 
+[theme.templates.user.hyprlock]
+input_path = "~/.config/noctalia/templates/hyprlock-colors.conf"
+output_path = "~/.cache/hypr/hyprlock-colors.conf"
+
 [location]
 auto_locate = false
 address = "Xi'an"
