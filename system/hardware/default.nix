@@ -47,18 +47,6 @@ in
     };
     kde-fingerprint.fprintAuth = config.services.fprintd.enable;
 
-    noctalia-shell = {
-      rules.auth = {
-        fprintd = {
-          enable = config.services.fprintd.enable;
-          order = 0;
-          control = "sufficient";
-          modulePath = "${pkgs.fprintd}/lib/security/pam_fprintd.so";
-          args = [ "max-tries=5" ];
-        };
-      };
-    };
-
     login.fprintAuth = false;
     chfn.fprintAuth = false;
     chpasswd.fprintAuth = false;
