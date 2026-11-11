@@ -4,5 +4,6 @@
     kdlfmt
     nixd
     nixfmt
+    ruff
   ];
 }
