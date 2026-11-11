@@ -421,26 +421,6 @@
         "type": "github"
       }
     },
-    "quickshell": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1792651682,
-        "narHash": "sha256-TiCGqLMpNIy7FERewgfKVluPsLVF96uc6x6xwZnMjdQ=",
-        "owner": "outfoxxed",
-        "repo": "quickshell",
-        "rev": "9b0f339b19057f4731bf3b48293307d7ef241671",
-        "type": "github"
-      },
-      "original": {
-        "owner": "outfoxxed",
-        "repo": "quickshell",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "dsh": "dsh",
@@ -451,8 +431,7 @@
         "nixpkgs": "nixpkgs_3",
         "noctalia": "noctalia",
         "pinentry-kwallet": "pinentry-kwallet",
-        "pulsar-plugins": "pulsar-plugins",
-        "quickshell": "quickshell"
+        "pulsar-plugins": "pulsar-plugins"
       }
     },
     "rust-overlay": {

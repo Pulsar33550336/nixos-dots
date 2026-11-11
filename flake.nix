@@ -2,10 +2,6 @@
   description = "NixOS flake-configuration with Noctalia";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    quickshell = {
-      url = "github:outfoxxed/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     pulsar-plugins = {
       url = "github:Pulsar33550336/pulsar-ns-plugins";
       flake = false;
